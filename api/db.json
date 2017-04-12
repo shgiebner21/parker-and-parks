@@ -1,0 +1,475 @@
+{
+  "family": [
+    {
+      "familyId": "RussellGiebnerrussell@gmail.com123-456-5555",
+      "parentFirst": "Russell",
+      "parentLast": "Giebner",
+      "eMail": "russell@gmail.com",
+      "cellPhone": "123-456-5555",
+      "streetAddress": "211 Grur Street",
+      "streetAddress2": "",
+      "city": "Grur",
+      "state": "SC",
+      "zip": "29403",
+      "password": "russell",
+      "id": 1
+    },
+    {
+      "familyId": "ElizabethWagenermom@gmail.com843-123-4567",
+      "parentFirst": "Elizabeth",
+      "parentLast": "Wagener",
+      "eMail": "mom@gmail.com",
+      "cellPhone": "843-123-4567",
+      "streetAddress": "211 Main st",
+      "streetAddress2": "",
+      "city": "James Island",
+      "state": "SC",
+      "zip": "29403",
+      "password": "threeKids",
+      "id": 2
+    },
+    {
+      "familyId": "JenKloskakloska@lowes.com555-555-5555",
+      "parentFirst": "Jen",
+      "parentLast": "Kloska",
+      "eMail": "kloska@lowes.com",
+      "cellPhone": "555-555-5555",
+      "streetAddress": "5555 Main Street",
+      "streetAddress2": "",
+      "city": "Charlotte",
+      "state": "NC",
+      "zip": "55555",
+      "password": "kloska",
+      "id": 3
+    }
+  ],
+  "children": [
+    {
+      "familyId": "ElizabethWagenermom@gmail.com843-123-4567",
+      "childName": "Nathan",
+      "childAge": "1",
+      "childsSex": "M",
+      "points": null,
+      "childNotes": "He's a happy kid",
+      "badges": [],
+      "activities": [
+        {
+          "name": "Denmark Vesey Statue",
+          "image": "/denmark-vesey-statue.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 20,
+          "type": "learning",
+          "id": 3
+        }
+      ],
+      "id": 1
+    },
+    {
+      "familyId": "ElizabethWagenermom@gmail.com843-123-4567",
+      "childName": "Lilly",
+      "childAge": "3",
+      "childsSex": "F",
+      "points": null,
+      "childNotes": "Shes pretty awesome too!",
+      "badges": [],
+      "activities": [
+        {
+          "name": "Run around the track",
+          "header": "go Run",
+          "image": "/Hampton-Park-track.JPG",
+          "alt": "hampton park track",
+          "location": "Hampton Park",
+          "story": "This is a ONE MILE track!  Let's go run!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 1
+        },
+        {
+          "name": "Denmark Vesey Statue",
+          "header": "learn!",
+          "image": "/denmark-vesey-statue.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 20,
+          "type": "learning",
+          "id": 3
+        }
+      ],
+      "id": 2
+    },
+    {
+      "familyId": "RussellGiebnerrussell@gmail.com123-456-5555",
+      "childName": "Chandler",
+      "childAge": "19",
+      "childsSex": "M",
+      "points": null,
+      "childNotes": "This kid is tall",
+      "badges": [],
+      "activities": [
+        {
+          "name": "Run around the track",
+          "header": "go Run",
+          "image": "/Hampton-Park-track.JPG",
+          "alt": "hampton park track",
+          "location": "Hampton Park",
+          "story": "This is a ONE MILE track!  Let's go run!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 1
+        },
+        {
+          "name": "Denmark Vesey Statue",
+          "header": "learn!",
+          "image": "/denmark-vesey-statue.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 20,
+          "type": "learning",
+          "id": 3
+        },
+        {
+          "name": "Band Stand",
+          "header": "learn!",
+          "image": "/hampton-park-bandstand.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 10,
+          "type": "learning",
+          "id": 4
+        }
+      ],
+      "id": 3
+    },
+    {
+      "familyId": "RussellGiebnerrussell@gmail.com123-456-5555",
+      "childName": "Anna",
+      "childAge": "15",
+      "childsSex": "F",
+      "points": null,
+      "childNotes": "She insists i'm giving her my car someday",
+      "badges": [],
+      "activities": [
+        {
+          "name": "Denmark Vesey Statue",
+          "header": "learn!",
+          "image": "/denmark-vesey-statue.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 20,
+          "type": "learning",
+          "id": 3
+        },
+        {
+          "name": "Band Stand",
+          "header": "learn!",
+          "image": "/hampton-park-bandstand.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 10,
+          "type": "learning",
+          "id": 4
+        }
+      ],
+      "id": 4
+    },
+    {
+      "childName": "LittleKloska2",
+      "childAge": "3",
+      "childsSex": "F",
+      "childNotes": "This one is fearless",
+      "familyId": "JenKloskakloska@lowes.com555-555-5555",
+      "badges": [],
+      "activities": [
+        {
+          "name": "Run around the track",
+          "header": "go Run",
+          "image": "/Hampton-Park-track.JPG",
+          "alt": "hampton park track",
+          "location": "Hampton Park",
+          "story": "This is a ONE MILE track!  Let's go run!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 1
+        },
+        {
+          "name": "Denmark Vesey Statue",
+          "header": "learn!",
+          "image": "/denmark-vesey-statue.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 20,
+          "type": "learning",
+          "id": 3
+        }
+      ],
+      "id": 5
+    },
+    {
+      "childName": "Jacob",
+      "childAge": "5",
+      "childsSex": "M",
+      "childNotes": "Hes a cool kid",
+      "familyId": "ElizabethWagenermom@gmail.com843-123-4567",
+      "badges": [
+        {
+          "name": "fitness",
+          "image": "/sport-1320602_1920.jpg",
+          "alt": "fitness badge",
+          "pointsRequired": 200
+        },
+        {
+          "name": "Scholar",
+          "image": "/junior-scholar.jpg",
+          "alt": "scholar badge",
+          "pointsRequired": 200
+        }
+      ],
+      "activities": [
+        {
+          "name": "Run around the track",
+          "header": "go Run",
+          "image": "/Hampton-Park-track.JPG",
+          "alt": "hampton park track",
+          "location": "Hampton Park",
+          "story": "This is a ONE MILE track!  Let's go run!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 1
+        },
+        {
+          "name": "Band Stand",
+          "header": "learn!",
+          "image": "/hampton-park-bandstand.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 10,
+          "type": "learning",
+          "id": 4
+        }
+      ],
+      "id": 6
+    },
+    {
+      "childName": "Joey",
+      "childAge": "34",
+      "childsSex": "M",
+      "childNotes": "He's a cool guy",
+      "familyId": "JenKloskakloska@lowes.com555-555-5555",
+      "badges": [],
+      "activities": [
+        {
+          "name": "Run around the track",
+          "header": "go Run",
+          "image": "/Hampton-Park-track.JPG",
+          "alt": "hampton park track",
+          "location": "Hampton Park",
+          "story": "This is a ONE MILE track!  Let's go run!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 1
+        },
+        {
+          "name": "Band Stand",
+          "header": "learn!",
+          "image": "/hampton-park-bandstand.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 10,
+          "type": "learning",
+          "id": 4
+        }
+      ],
+      "id": 7
+    },
+    {
+      "childName": "Lucy",
+      "childAge": "5",
+      "childsSex": "F",
+      "childNotes": "She's a dancing fool",
+      "familyId": "JenKloskakloska@lowes.com555-555-5555",
+      "activities": [
+        {
+          "name": "Run around the track",
+          "header": "go Run",
+          "body": "finish the run?",
+          "image": "/Hampton-Park-track.JPG",
+          "alt": "hampton park track",
+          "location": "Hampton Park",
+          "story": "This is a ONE MILE track!  Let's go run!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 1
+        },
+        {
+          "name": "Fitness course",
+          "header": "be Active",
+          "body": "finish the course?",
+          "image": "/Hampton-Park-fitness.JPG",
+          "alt": "hampton park fitness course",
+          "location": "Hampton Park",
+          "story": "There are so many fun activities on this course!  Let's go play!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 5
+        },
+        {
+          "name": "Denmark Vesey Statue",
+          "header": "learn!",
+          "body": "learn about Denmark Vesey?",
+          "image": "/denmark-vesey-statue.jpg",
+          "location": "Hampton Park",
+          "story": "Denmark Vesey was born around 1767 on the island of Saint Thomas in the Caribbean...",
+          "pointValue": 20,
+          "type": "learning",
+          "id": 3
+        },
+        {
+          "name": "Keep the park clean!",
+          "header": "shine!",
+          "body": "keep the park clean",
+          "image": "/hampton-park-clean.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 10,
+          "type": "samaritan",
+          "id": 6
+        }
+      ],
+      "badges": [],
+      "id": 8
+    }
+  ],
+  "parks": [
+    {
+      "parkName": "Hampton Park",
+      "parkLat": "5",
+      "parkLong": "M",
+      "activity": [
+        {
+          "name": "Run around the track",
+          "header": "go Run",
+          "body": "finish the run?",
+          "image": "/Hampton-Park-track.JPG",
+          "alt": "hampton park track",
+          "location": "Hampton Park",
+          "story": "This is a ONE MILE track!  Let's go run!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 1
+        },
+        {
+          "name": "Fitness course",
+          "header": "be Active",
+          "body": "finish the course?",
+          "image": "/Hampton-Park-fitness.JPG",
+          "alt": "hampton park fitness course",
+          "location": "Hampton Park",
+          "story": "There are so many fun activities on this course!  Let's go play!",
+          "pointValue": 20,
+          "type": "fitness",
+          "id": 5
+        },
+        {
+          "name": "Horse racing track",
+          "header": "go Run",
+          "body": "learn about the race track?",
+          "pointValue": 10,
+          "history": "In 1835, the South Carolina Jockey Club bought part of the Gibbes Plantation for use as a horse racing course.  The running track that exists today is in almost exactly the same place as the old racing course.",
+          "type": "learning",
+          "id": 2
+        },
+        {
+          "name": "Denmark Vesey Statue",
+          "header": "learn!",
+          "body": "learn about Denmark Vesey?",
+          "image": "/denmark-vesey-statue.jpg",
+          "location": "Hampton Park",
+          "story": "Denmark Vesey was born around 1767 on the island of Saint Thomas in the Caribbean...",
+          "pointValue": 20,
+          "type": "learning",
+          "id": 3
+        },
+        {
+          "name": "Band Stand",
+          "header": "learn!",
+          "body": "learn about the Band Stand",
+          "image": "/hampton-park-bandstand.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 10,
+          "type": "learning",
+          "id": 4
+        },
+        {
+          "name": "Keep the park clean!",
+          "header": "shine!",
+          "body": "keep the park clean",
+          "image": "/hampton-park-clean.jpg",
+          "location": "Hampton Park",
+          "story": "",
+          "pointValue": 10,
+          "type": "samaritan",
+          "id": 6
+        }
+      ],
+      "id": 1
+    },
+    {
+      "parkName": "Colonial Lake",
+      "parkLat": "5",
+      "parkLong": "M",
+      "activity": [
+        {
+          "name": "Lake",
+          "header": "learn!",
+          "body": "learn about Colonial Lake?",
+          "image": "lake.img",
+          "location": "Colonial Lake",
+          "story": "",
+          "pointValue": 10,
+          "type": "learning",
+          "id": 1
+        },
+        {
+          "name": "Trees",
+          "header": "learn!",
+          "body": "learn about the park trees?",
+          "image": "trees.img",
+          "location": "Colonial Lake",
+          "story": "",
+          "pointValue": 10,
+          "type": "learning",
+          "id": 2
+        }
+      ],
+      "id": 2
+    }
+  ],
+  "badges": [
+    {
+      "name": "fitness",
+      "image": "/sport-1320602_1920.jpg",
+      "alt": "fitness badge",
+      "pointsRequired": 40
+    },
+    {
+      "name": "Scholar",
+      "image": "/junior-scholar.pdf",
+      "alt": "scholar badge",
+      "pointsRequired": 40
+    },
+    {
+      "name": "Good Samaritan",
+      "image": "/volunteer-1358074_1280.png",
+      "alt": "samaritan badge",
+      "pointsRequired": 40
+    },
+    {
+      "name": "Park Ranger",
+      "image": "/junior-ranger.png",
+      "alt": "park ranger badge",
+      "pointsRequired": 100
+    }
+  ]
+}

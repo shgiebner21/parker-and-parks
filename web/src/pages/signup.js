@@ -5,14 +5,14 @@ import TextField from '../components/input-text'
 import BasicButton from '../components/basic-button'
 
 
-const getFamily = (id) => fetch('http://localhost:5000/family' + id)
+const getFamily = (id) => fetch('http://localhost:8080/family' + id)
 
 const updateFamilyId = (family) => {
   return family.familyId = family.parentFirst + family.parentLast +
     family.eMail + family.cellPhone
 }
 
-const postFamily = (family) => fetch('http://localhost:5000/family', {
+const postFamily = (family) => fetch('http://localhost:8080/family', {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -21,7 +21,7 @@ const postFamily = (family) => fetch('http://localhost:5000/family', {
   })
 
 
-const putFamily = (family) => fetch('http://localhost:5000/family' + family.id, {
+const putFamily = (family) => fetch('http://localhost:8080/family' + family.id, {
   headers: {
     'Content-Type': 'application/json'
   },

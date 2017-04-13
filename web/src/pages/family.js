@@ -4,14 +4,13 @@ import {map} from 'ramda'
 import BasicButton from '../components/basic-button'
 
 
-
 class Family extends Component {
   componentDidMount () {
-      fetch('http://localhost:5000/children/')
+      fetch('http://localhost:8080/children/')
         .then(res => res.json())
         .then(children => this.props.dispatch({type: 'SET_CHILDREN',
-          payload: children
-        }))
+          payload: children })
+        )
   }
 
   render() {

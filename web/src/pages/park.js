@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {map} from 'ramda'
 import Activity from '../components/activity'
 
-const getPark = (id) => fetch('http://localhost:5000/parks/' + id)
+const getPark = (id) => fetch('http://localhost:8080/parks' + id)
 
 class Park extends Component {
   componentDidMount() {

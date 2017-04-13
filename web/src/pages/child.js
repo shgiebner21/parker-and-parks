@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, sort, reverse, path, pathOr, sum} from 'ramda'
+import {map, reduce, filter, compose, sort, reverse, path, pathOr} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
-const getChild = (id) => fetch('http://localhost:5000/children/' + id)
-const getChildren = () => fetch('http://localhost:5000/children')
-const getBadges = () => fetch('http://localhost:5000/badges')
+const getChild = (id) => fetch('http://localhost:8080/children/' + id)
+const getChildren = () => fetch('http://localhost:8080/children')
+const getBadges = () => fetch('http://localhost:8080/badges')
 
 class Child extends Component {
   componentDidMount() {

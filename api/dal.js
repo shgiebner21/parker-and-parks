@@ -3,12 +3,13 @@ PouchDB.plugin(require('pouchdb-mapreduce'))
 const couch_base_uri = 'http://127.0.0.1:5984/'
 const couch_dbname = 'cpc'
 const db = new PouchDB(couch_base_uri + couch_dbname)
+const {map} = require('ramda')
 
 
 
-///////////////////////
+/////////////////////////////////////////////
 //   family
-//////////////////////
+/////////////////////////////////////////////
 function postFamily(family, cb) {
   family.type = 'family'
   let newId = 'family_' + family.parentLast.toLowerCase()
@@ -21,6 +22,17 @@ function postFamily(family, cb) {
   })
 }
 
+function getFamilies(starkey, limit, cb) {
+  db.query('families', {include_docs: true}, function(err, families) {
+    if (err) return cb(err)
+    cb(null, map(returnDoc, families.rows))
+  })
+}
+
+
+/////////////////////////////////////////////
+//   children
+/////////////////////////////////////////////
 function postChildren(child, cb) {
   child.type = 'children'
   let newId = 'children_' + child.childName.toLowerCase()
@@ -33,31 +45,70 @@ function postChildren(child, cb) {
   })
 }
 
+function listChildren(startkey, limit, cb) {
+  db.query('children', {include_docs: true}, function(err, list) {
+    if (err) return cb(err)
+    cb(null, map(returnDoc, list.rows))
+  })
+}
 
+function getChild(id, cb) {
+  db.get(id, function(err, child) {
+    if (err) return cb(err)
+    cb(null, child)
+  })
+}
 
+/////////////////////////////////////////////
+//   badges
+/////////////////////////////////////////////
+function listBadges(startkey, limit, cb) {
+  db.query('badges', {include_docs: true}, function(err, list) {
+    if (err) return cb(err)
+    cb(null, map(returnDoc, list.rows))
+  })
+}
 
-
-///////////////////////
+/////////////////////////////////////////////
 //   park
-//////////////////////
-function getHamptonPark(cb) {
-  db.get('park_hampton_park',  function(err, parks) {
+/////////////////////////////////////////////
+function getParks(startkey, limit, cb) {
+  db.query('parks', {include_docs: true},  function(err, parks) {
       if (err) return cb(err)
-      cb(null, parks)
+      cb(null, map(returnDoc, parks.rows))
     })
 }
 
+function getPark(id, cb) {
+  db.get(id, function(err, park) {
+    if (err) return cb(err)
+    cb(null, park)
+  })
+}
 
 
-
-///////////////////////
+/////////////////////////////////////////////
 // helper functions
-///////////////////////
+/////////////////////////////////////////////
+
+const returnDoc = row => row.doc
+
+
+
+
+
+
 
 
 const dal = {
   postFamily: postFamily,
-  postChildren: postChildren
+  getFamilies: getFamilies,
+  postChildren: postChildren,
+  listChildren: listChildren,
+  getChild: getChild,
+  listBadges: listBadges,
+  getParks: getParks,
+  getPark: getPark
 }
 
 module.exports = dal

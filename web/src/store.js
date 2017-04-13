@@ -1,22 +1,9 @@
 import {createStore, combineReducers} from 'redux'
 import {set, lensProp} from 'ramda'
 
-const initialFamily = {
-  familyId: '',
-  parentFirst: '',
-  parentLast: '',
-  eMail: '',
-  cellPhone: '',
-  streetAddress: '',
-  streetAddress2: '',
-  city: '',
-  state: '',
-  zip: '',
-  password: ''
-}
 
 
-const family = (state=initialFamily, action) => {
+const family = (state=[], action) => {
   switch (action.type) {
     case 'SET_PARENT_FIRST':
       return set(lensProp('parentFirst'), action.payload, state)
@@ -40,8 +27,14 @@ const family = (state=initialFamily, action) => {
         return set(lensProp('password'), action.payload, state)
       case 'SET_FAMILY':
         return action.payload
-      case 'CLEAR_FAMILY':
-        return {}
+    default:
+      return state
+  }
+}
+const families = (state=[], action) => {
+  switch (action.type) {
+    case 'SET_FAMILIES':
+      return action.payload
     default:
       return state
   }
@@ -76,12 +69,8 @@ const child = (state=[], action) => {
   }
 }
 
-const initialPark = {
-  park: '',
-  activity: []
-}
 
-const parks = (state=initialPark, action) => {
+const parks = (state=[], action) => {
   switch (action.type) {
     case 'SET_PARKS':
       return action.payload
@@ -121,6 +110,7 @@ const validate = (state=initialValidate, action) => {
 const store = createStore(
   combineReducers({
     family,
+    families,
     children,
     child,
     parks,

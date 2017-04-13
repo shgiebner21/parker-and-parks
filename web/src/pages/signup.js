@@ -133,13 +133,16 @@ const mapActionsToProps = (dispatch) => ({
     } else if(family.id) {
       putFamily(family).then(res => res.json())
         .then(res => {
-          dispatch({type: 'CLEAR_FAMILY'})
+          dispatch({type: 'SET_FAMILY'})
           history.push('/family' + family.id)
         })
     } else {
       updateFamilyId(family)
       postFamily(family).then(res => res.json())
-        history.push('/children')
+        .then(res => {
+          dispatch({type: 'SET_FAMILY', payload: family})
+          history.push('/children')
+        })
     }
   }
 })

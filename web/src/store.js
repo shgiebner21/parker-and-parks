@@ -88,12 +88,8 @@ const badges = (state=[], action) => {
   }
 }
 
-const initialValidate = {
-  eMail: '',
-  password: ''
-}
 
-const validate = (state=initialValidate, action) => {
+const validate = (state=[], action) => {
   switch (action.type) {
     case 'SET_VALIDATION':
       return action.payload

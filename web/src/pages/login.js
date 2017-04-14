@@ -8,23 +8,28 @@ import BasicButton from '../components/basic-button'
 const getFamilies = () => fetch('http://localhost:8080/family')
 
 const loginFamily = (family) => {
-  return family.eMail
+  if (family.eMail === this.props.validate.eMail) {
+    return family.eMail
+  } else {
+    alert('no matching eMail on file')
+  }
 }
 
 class Login extends Component {
   componentDidMount() {
     getFamilies()
       .then(res => res.json())
-      .then(family => this.props.set(family))
+      .then(families => this.props.set(families))
   }
 
   render() {
     const props = this.props
 
+
     return(
       <div>
       <h2>Login</h2>
-      <form onSubmit={props.submit(props.validate, props.family, props.history)}>
+      <form onSubmit={props.submit(props.validate, props.families, props.history)}>
       <TextField label='E-Mail address'
                  value={pathOr('', ['validate', 'eMail'], props)}
                  onChange={props.validateEMail}
@@ -47,18 +52,21 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  family: state.family,
+  families: state.families,
   validate: state.validate
 })
 const mapActionsToProps = (dispatch) => ({
-  set: (family) => dispatch({type: 'SET_FAMILY', payload: family}),
+  set: (families) => dispatch({type: 'SET_FAMILIES', payload: families}),
   validateEMail: (e) => dispatch({type: 'VALIDATE_EMAIL', payload: e.target.value}),
   validatePassword: (e) => dispatch({type: 'VALIDATE_PASSWORD', payload: e.target.value}),
-  submit: (validate, family, history) => (e) => {
-
+  submit: (validate, families, history) => (e) => {
     dispatch({type: 'SET_VALIDATION', payload: validate})
-    if (validate.eMail === map(loginFamily, family)) {
-      history.push('/family/' + family.id)
+    console.log('validate eMail is ', validate.eMail)
+    console.log('family eMail is ', map(loginFamily, families))
+    if (validate.eMail === map(loginFamily, families)) {
+      history.push('/family')
+    } else {
+      alert('eMail or password is incorrect.')
     }
   }
 })

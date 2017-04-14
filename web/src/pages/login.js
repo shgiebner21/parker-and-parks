@@ -5,7 +5,7 @@ import TextField from '../components/input-text'
 import BasicButton from '../components/basic-button'
 
 
-const getFamilies = () => fetch('http://localhost:5000/family')
+const getFamilies = () => fetch('http://localhost:8080/family')
 
 const loginFamily = (family) => {
   return family.eMail
@@ -20,7 +20,6 @@ class Login extends Component {
 
   render() {
     const props = this.props
-
 
     return(
       <div>

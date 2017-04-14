@@ -1,24 +1,28 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, sort, reverse, path, pathOr, sum} from 'ramda'
+import {map, reduce, filter, compose, sort, reverse, path, pathOr} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
-const getChild = (id) => fetch('http://localhost:5000/children/' + id)
-const getChildren = () => fetch('http://localhost:5000/children')
-const getBadges = () => fetch('http://localhost:5000/badges')
+const getChild = (id) => fetch('http://localhost:8080/children/' + id)
+const getChildren = () => fetch('http://localhost:8080/children')
+const getBadges = () => fetch('http://localhost:8080/badges')
+const getParks = () => fetch('http://localhost:8080/parks')
 
 class Child extends Component {
   componentDidMount() {
     getChild(this.props.match.params.id)
       .then(res => res.json())
-      .then(child => this.props.set(child))
+      .then(child => this.props.setChild(child))
     getChildren()
     .then(res => res.json())
     .then(children => this.props.setChildren(children))
     getBadges()
       .then(res => res.json())
       .then(badges => this.props.setBadges(badges))
+    getParks()
+      .then(res => res.json())
+      .then(parks => this.props.setParks(parks))
   }
 
   render() {
@@ -44,9 +48,14 @@ class Child extends Component {
                         sib.childName !== child.childName) === true, sibs))
       }
 
+      const parkButton = (park, history) => {
+        return <ChildButton label={park.parkName} key={park.parkName}
+                             onClick={e => this.props.history.push('/parks/' + park._id)} />
+      }
+
       const makeButton = (sib) => {
         return <ChildButton label={sib.childName} key={sib.childName}
-                            onClick={e => this.props.set(sib)}/>
+                            onClick={e => this.props.set(sib)} />
       }
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
@@ -130,10 +139,7 @@ class Child extends Component {
           <hr />
         </div>
         <div >
-          <a className="pa2 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-green"
-            onClick={e => this.props.history.push('/parks/1')} >Hampton Park</a>
-          <a className="pa2 f6 grow no-underline br-pill ph3 pv2 mb2 dib white bg-green"
-            onClick={e => this.props.history.push('/parks/2')} >Colonial Lake</a>
+          {map(parkButton, props.parks, props.history)}
           {map(makeButton, findSiblings(props.child, props.children))}
         </div>
         </div>
@@ -148,12 +154,14 @@ const mapStateToProps = (state) => ({
   family: state.family,
   children: state.children,
   child: state.child,
-  badges: state.badges
+  badges: state.badges,
+  parks: state.parks
 })
 const mapActionsToProps = (dispatch) => ({
-  set: (child) => dispatch({type: 'SET_CHILD', payload: child}),
+  setChild: (child) => dispatch({type: 'SET_CHILD', payload: child}),
   setChildren: (children) => dispatch({type: 'SET_CHILDREN', payload: children}),
-  setBadges: (badges) => dispatch({type: 'SET_BADGES', payload: badges})
+  setBadges: (badges) => dispatch({type: 'SET_BADGES', payload: badges}),
+  setParks: (parks) => dispatch({type: 'SET_PARKS', payload: parks})
 })
 const connector = connect(mapStateToProps, mapActionsToProps)
 

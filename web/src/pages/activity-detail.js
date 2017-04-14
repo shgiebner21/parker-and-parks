@@ -4,14 +4,14 @@ import {filter, lensProp, set, append} from 'ramda'
 import Footer from '../components/footer'
 
 
-const getChild = (id) => fetch('http://localhost:5000/children/' + id)
+const getChild = (id) => fetch('http://localhost:8080/children/' + id)
 
 
 const putActivity = (child, action) =>
 
   { const activitiesLens = lensProp('activities')
     const updatedChild = set(activitiesLens, append(action, child.activities), child)
-    fetch('http://localhost:5000/children/' + child.id, {
+    fetch('http://localhost:8080/children/' + child.id, {
       headers: {
         'Content-Type': 'application/json'
       },
@@ -100,7 +100,7 @@ const mapActionsToProps = (dispatch) => ({
   appendChild: (history, child, parks, children, action) => (e) => {
     e.preventDefault()
     putActivity(child, action)
-    fetch('http://localhost:5000/children')
+    fetch('http://localhost:8080/children')
       .then(res => res.json())
       .then(children => dispatch({type: 'SET_CHILDREN',
       payload: children}))

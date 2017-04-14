@@ -10,15 +10,16 @@ const updateFamilyId = (children, id) => {
           children.badges = [])
 }
 
-const postChildren = (children, id) => fetch('http://localhost:5000/children', {
+const postChildren = (children) => fetch('http://localhost:8080/children', {
   headers: {
     'Content-Type': 'application/json'
   },
   method: 'POST',
-  body: JSON.stringify(children, id)
+  body: JSON.stringify(children)
 })
 
-const getChildren = (id) => fetch('http://localhost:5000/children' + id)
+
+const getChildren = (id) => fetch('http://localhost:8080/children' + id)
 
 class Children extends Component {
   componentDidMount() {
@@ -91,7 +92,7 @@ const mapActionsToProps = (dispatch) => ({
       return alert('Required data is missing')
     }
     updateFamilyId(children, family.familyId)
-    postChildren(children).then(res => res.json()).then( res => {
+    postChildren(children).then(res => res.json()).then(res => {
       dispatch({type: 'CLEAR_CHILDREN'})
       history.push('/children')
     }).catch(err => console.log(err.message))
@@ -104,6 +105,7 @@ const mapActionsToProps = (dispatch) => ({
       history.push('/family')
     }).catch(err => console.log(err.message))
   }
+
 })
 const connector = connect(mapStateToProps, mapActionsToProps)
 

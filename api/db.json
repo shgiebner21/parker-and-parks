@@ -27,20 +27,6 @@
       "zip": "29403",
       "password": "threeKids",
       "id": 2
-    },
-    {
-      "familyId": "JenKloskakloska@lowes.com555-555-5555",
-      "parentFirst": "Jen",
-      "parentLast": "Kloska",
-      "eMail": "kloska@lowes.com",
-      "cellPhone": "555-555-5555",
-      "streetAddress": "5555 Main Street",
-      "streetAddress2": "",
-      "city": "Charlotte",
-      "state": "NC",
-      "zip": "55555",
-      "password": "kloska",
-      "id": 3
     }
   ],
   "children": [
@@ -127,16 +113,6 @@
           "pointValue": 20,
           "type": "learning",
           "id": 3
-        },
-        {
-          "name": "Band Stand",
-          "header": "learn!",
-          "image": "/hampton-park-bandstand.jpg",
-          "location": "Hampton Park",
-          "story": "",
-          "pointValue": 10,
-          "type": "learning",
-          "id": 4
         }
       ],
       "id": 3
@@ -159,22 +135,12 @@
           "pointValue": 20,
           "type": "learning",
           "id": 3
-        },
-        {
-          "name": "Band Stand",
-          "header": "learn!",
-          "image": "/hampton-park-bandstand.jpg",
-          "location": "Hampton Park",
-          "story": "",
-          "pointValue": 10,
-          "type": "learning",
-          "id": 4
         }
       ],
       "id": 4
     },
     {
-      "childName": "LittleKloska2",
+      "childName": "Stella",
       "childAge": "3",
       "childsSex": "F",
       "childNotes": "This one is fearless",
@@ -191,16 +157,6 @@
           "pointValue": 20,
           "type": "fitness",
           "id": 1
-        },
-        {
-          "name": "Denmark Vesey Statue",
-          "header": "learn!",
-          "image": "/denmark-vesey-statue.jpg",
-          "location": "Hampton Park",
-          "story": "",
-          "pointValue": 20,
-          "type": "learning",
-          "id": 3
         }
       ],
       "id": 5
@@ -216,13 +172,7 @@
           "name": "fitness",
           "image": "/sport-1320602_1920.jpg",
           "alt": "fitness badge",
-          "pointsRequired": 200
-        },
-        {
-          "name": "Scholar",
-          "image": "/junior-scholar.jpg",
-          "alt": "scholar badge",
-          "pointsRequired": 200
+          "pointsRequired": 40
         }
       ],
       "activities": [
@@ -236,16 +186,6 @@
           "pointValue": 20,
           "type": "fitness",
           "id": 1
-        },
-        {
-          "name": "Band Stand",
-          "header": "learn!",
-          "image": "/hampton-park-bandstand.jpg",
-          "location": "Hampton Park",
-          "story": "",
-          "pointValue": 10,
-          "type": "learning",
-          "id": 4
         }
       ],
       "id": 6
@@ -268,76 +208,9 @@
           "pointValue": 20,
           "type": "fitness",
           "id": 1
-        },
-        {
-          "name": "Band Stand",
-          "header": "learn!",
-          "image": "/hampton-park-bandstand.jpg",
-          "location": "Hampton Park",
-          "story": "",
-          "pointValue": 10,
-          "type": "learning",
-          "id": 4
         }
       ],
       "id": 7
-    },
-    {
-      "childName": "Lucy",
-      "childAge": "5",
-      "childsSex": "F",
-      "childNotes": "She's a dancing fool",
-      "familyId": "JenKloskakloska@lowes.com555-555-5555",
-      "activities": [
-        {
-          "name": "Run around the track",
-          "header": "go Run",
-          "body": "finish the run?",
-          "image": "/Hampton-Park-track.JPG",
-          "alt": "hampton park track",
-          "location": "Hampton Park",
-          "story": "This is a ONE MILE track!  Let's go run!",
-          "pointValue": 20,
-          "type": "fitness",
-          "id": 1
-        },
-        {
-          "name": "Fitness course",
-          "header": "be Active",
-          "body": "finish the course?",
-          "image": "/Hampton-Park-fitness.JPG",
-          "alt": "hampton park fitness course",
-          "location": "Hampton Park",
-          "story": "There are so many fun activities on this course!  Let's go play!",
-          "pointValue": 20,
-          "type": "fitness",
-          "id": 5
-        },
-        {
-          "name": "Denmark Vesey Statue",
-          "header": "learn!",
-          "body": "learn about Denmark Vesey?",
-          "image": "/denmark-vesey-statue.jpg",
-          "location": "Hampton Park",
-          "story": "Denmark Vesey was born around 1767 on the island of Saint Thomas in the Caribbean...",
-          "pointValue": 20,
-          "type": "learning",
-          "id": 3
-        },
-        {
-          "name": "Keep the park clean!",
-          "header": "shine!",
-          "body": "keep the park clean",
-          "image": "/hampton-park-clean.jpg",
-          "location": "Hampton Park",
-          "story": "",
-          "pointValue": 10,
-          "type": "samaritan",
-          "id": 6
-        }
-      ],
-      "badges": [],
-      "id": 8
     }
   ],
   "parks": [

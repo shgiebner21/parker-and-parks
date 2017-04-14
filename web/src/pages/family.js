@@ -4,24 +4,29 @@ import {map} from 'ramda'
 import BasicButton from '../components/basic-button'
 
 
+const getFamilies = () => fetch('http://localhost:8080/family')
+const getChildren = () => fetch('http://localhost:8080/children')
 
 class Family extends Component {
   componentDidMount () {
-      fetch('http://localhost:5000/children/')
-        .then(res => res.json())
-        .then(children => this.props.dispatch({type: 'SET_CHILDREN',
-          payload: children
-        }))
+    getFamilies()
+    .then(res => res.json())
+    .then(families => this.props.setFamilies(families))
+  getChildren()
+    .then(res => res.json())
+    .then(children => this.props.setChildren(children))
   }
+
 
   render() {
     const props = this.props
+
     const li = (child) => {
       if (child.familyId === props.family.familyId) {
       return (
-        <li key={child.id}>
+        <li key={child._id}>
           <BasicButton
-            onClick={e => this.props.history.push('/children/' + child.id)}>
+            onClick={e => this.props.history.push('/children/' + child._id)}>
             {child.childName}</BasicButton>
         </li>
       )
@@ -45,10 +50,16 @@ class Family extends Component {
 
 const mapStateToProps = (state) => ({
   family: state.family,
+  families: state.families,
   children: state.children
+})
+const mapActionsToProps = dispatch => ({
+  setChildren: (children) => dispatch({type: 'SET_CHILDREN', payload: children}),
+  setFamilies: (families) => dispatch({type: 'SET_FAMILIES', payload: families}),
+  setFamily: (family) => dispatch({type: 'SET_FAMILY', payload: family})
 })
 
 
-const connector = connect(mapStateToProps)
+const connector = connect(mapStateToProps, mapActionsToProps)
 
 export default connector(Family)

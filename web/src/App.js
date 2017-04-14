@@ -14,7 +14,7 @@ import ActivityDetail from './pages/activity-detail'
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
+      <BrowserRouter>  
         <div className='pa1'>
           <header>
             <h1 className="bg-light-green mw7 center pa1 br2-ns ba b--black-10 tc">

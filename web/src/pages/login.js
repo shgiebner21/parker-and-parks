@@ -1,17 +1,28 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {pathOr, map} from 'ramda'
+import {pathOr, map, compose, filter} from 'ramda'
 import TextField from '../components/input-text'
 import BasicButton from '../components/basic-button'
 
 
 const getFamilies = () => fetch('http://localhost:8080/family')
 
-const loginFamily = (family) => {
-  if (family.eMail === this.props.validate.eMail) {
-    return family.eMail
-  } else {
-    alert('no matching eMail on file')
+const currentFamily = (families, validate) => {
+  const famMail = compose(
+    filter(eMail => eMail === validate.eMail),
+    map(fam => fam.eMail)
+  )(families)
+
+  const famPass = compose(
+    filter(pass => pass === validate.password),
+    map(fam => fam.password)
+  )(families)
+
+  const famEMail = famMail.pop()
+  const famPassword = famPass.pop()
+
+  if (validate.eMail === famEMail && validate.password === famPassword) {
+    return famEMail
   }
 }
 
@@ -29,7 +40,7 @@ class Login extends Component {
     return(
       <div>
       <h2>Login</h2>
-      <form onSubmit={props.submit(props.validate, props.families, props.history)}>
+      <form onSubmit={props.submit(props.validate, props.families, props.history, currentFamily(props.families, props.validate))}>
       <TextField label='E-Mail address'
                  value={pathOr('', ['validate', 'eMail'], props)}
                  onChange={props.validateEMail}
@@ -59,11 +70,10 @@ const mapActionsToProps = (dispatch) => ({
   set: (families) => dispatch({type: 'SET_FAMILIES', payload: families}),
   validateEMail: (e) => dispatch({type: 'VALIDATE_EMAIL', payload: e.target.value}),
   validatePassword: (e) => dispatch({type: 'VALIDATE_PASSWORD', payload: e.target.value}),
-  submit: (validate, families, history) => (e) => {
+  submit: (validate, families, history, famEMail) => (e) => {
+    e.preventDefault()
     dispatch({type: 'SET_VALIDATION', payload: validate})
-    console.log('validate eMail is ', validate.eMail)
-    console.log('family eMail is ', map(loginFamily, families))
-    if (validate.eMail === map(loginFamily, families)) {
+    if (validate.eMail === famEMail) {
       history.push('/family')
     } else {
       alert('eMail or password is incorrect.')

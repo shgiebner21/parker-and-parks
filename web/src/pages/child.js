@@ -9,6 +9,11 @@ const getChildren = () => fetch('http://localhost:8080/children')
 const getBadges = () => fetch('http://localhost:8080/badges')
 const getParks = () => fetch('http://localhost:8080/parks')
 
+const diff = (a, b) => {
+  return a - b
+}
+
+
 class Child extends Component {
   componentDidMount() {
     getChild(this.props.match.params.id)
@@ -77,9 +82,8 @@ class Child extends Component {
 
   //pull children in family for Family Rank calc and order them by points
   //pull all children for CPC Rank calc and order them by points
-      const familyChildren = (child, sibs) => {
+        const familyChildren = (child, sibs) => {
         return compose(
-          sort(reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)),
           filter(sib => (sib.familyId === child.familyId) === true)
         )(sibs)
       }
@@ -94,7 +98,6 @@ class Child extends Component {
       const rankFamily = (child) => {
         return <li key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points</li>
       }
-
 
 
       return(
@@ -134,7 +137,7 @@ class Child extends Component {
           </ol>
           <h4>CPC Rank:</h4>
           <ol>
-            {map(rankFamily, rankAllChildren(props.child, props.children))}
+            {map(rankFamily, props.children)}
           </ol>
           <hr />
         </div>

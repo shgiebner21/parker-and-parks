@@ -9,6 +9,7 @@
   - Login button - now working and moving to Family page, BUT this route does not bring in family yet...
   
   - __Calculation for when badge earned__ - needs append to child also
+    - this will go in activity-detail.js, inside putActivity function
     - Blank Login should not be allowed (this should mirror blank Signup code)
   - Child page, blank children should not be allowed...__code is there but only partially working__...
 

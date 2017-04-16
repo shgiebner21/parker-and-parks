@@ -4,8 +4,6 @@
     - Child page - Family Rank calculation...sort of working...__think I have to give sort(func, xx) a function__.
     - Child page - CPC Rank calculation...this is working by child id, NOT by points...__not sure why__.
 
-  Activity detail is losing the children array
-
   - Login button - now working and moving to Family page, BUT this route does not bring in family yet...
   
   - __Calculation for when badge earned__ - needs append to child also
@@ -17,7 +15,7 @@
     - https:\\byseedstypingediseareake:224631cb9a0db5ad1e41160b9c538e3abdce370f@giebnar.cloudant.com/cpc
   
   - API and DAL structure
-    - In process, going well enough to hold to the weekend
+    - complete except for Child page, sibling buttons actually put in correct url but page is not re-rendering
   
 
   #### TODO's completed
@@ -49,16 +47,14 @@
 #### Children page - 'Enter another Child' button is not yet working.  Think CSS related.
 
 #### Child page
-  - Siblings need to be wired up to go to their page.
-    - kind of works but doesn't refresh without clicking on url and hitting enter.
+
 
 #### Parks
-  - Need a return to Childs page button.  This also needs to refresh.
   - Need stories and images for both parks.
 
 #### Activity-detail page
   - Cancel button is appending selected activity...!
-  - Completed activity is not showing up on Child's page
+
 
 
 #### Nice to Have

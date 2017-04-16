@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {filter, lensProp, set, append, path} from 'ramda'
+import {filter, lensProp, set, append, path, compose, reduce,
+        pathOr, props} from 'ramda'
 import Footer from '../components/footer'
 
 
@@ -17,6 +18,16 @@ const putActivity = (child, action) => {
     body: JSON.stringify(updatedChild)
   })
 }
+
+const checkForBadge = (child, action) => {
+  const fitnessPoints = compose(
+    reduce((acc, acts) => acc + acts.pointValue, 0, ),
+    filter(act => act.type === 'fitness')
+  )(pathOr([], ['child', 'activities'], props))
+  console.log('in act-detail ', fitnessPoints)
+  console.log('in act-detail ', child.activities)
+}
+
 
 class ActivityDetail extends Component  {
   componentDidMount() {
@@ -102,14 +113,15 @@ const mapStateToProps = (state) => ({
   children: state.children,
   child: state.child,
   parks: state.parks,
-  park: state.park
+  park: state.park,
+  badges: state.badges
 })
 const mapActionsToProps = (dispatch) => ({
   set: (child) => dispatch({type: 'SET_CHILD', payload: child}),
   setParks: (parks) => dispatch({type: 'SET_PARKS', payload: parks}),
   appendChild: (history, child, parks, park, children, action) => (e) => {
     e.preventDefault()
-      putActivity(child, action)
+    putActivity(child, action)
     fetch('http://localhost:8080/children')
       .then(res => res.json())
       .then(children => dispatch({type: 'SET_CHILDREN', payload: children}))

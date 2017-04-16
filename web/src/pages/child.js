@@ -12,9 +12,16 @@ const getParks = () => fetch('http://localhost:8080/parks')
 
 class Child extends Component {
   componentDidMount() {
-    getChild(this.props.match.params.id)
-      .then(res => res.json())
-      .then(child => this.props.setChild(child))
+    console.log(this.props.match.params.id)
+    if (this.props.match.params.id === 'undefined') {
+      getChild(this.props.child._id)
+        .then(res => res.json())
+        .then(child => this.props.setChild(child))
+    } else {
+      getChild(this.props.match.params.id)
+        .then(res => res.json())
+        .then(child => this.props.setChild(child))
+    }
     getChildren()
     .then(res => res.json())
     .then(children => this.props.setChildren(children))
@@ -56,7 +63,7 @@ class Child extends Component {
 
       const makeButton = (sib) => {
         return <ChildButton label={sib.childName} key={sib.childName}
-                            onClick={e => this.props.set(sib)} />
+                            onClick={e => this.props.history.push('/children/' +sib._id)} />
       }
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))

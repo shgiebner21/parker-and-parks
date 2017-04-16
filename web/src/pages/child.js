@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, sort, reverse, path, pathOr} from 'ramda'
+import {map, reduce, filter, compose, path, pathOr, sort} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
@@ -9,11 +9,18 @@ const getChildren = () => fetch('http://localhost:8080/children')
 const getBadges = () => fetch('http://localhost:8080/badges')
 const getParks = () => fetch('http://localhost:8080/parks')
 
+
 class Child extends Component {
   componentDidMount() {
-    getChild(this.props.match.params.id)
-      .then(res => res.json())
-      .then(child => this.props.setChild(child))
+    if (this.props.match.params.id === 'undefined') {
+      getChild(this.props.child._id)
+        .then(res => res.json())
+        .then(child => this.props.setChild(child))
+    } else {
+      getChild(this.props.match.params.id)
+        .then(res => res.json())
+        .then(child => this.props.setChild(child))
+    }
     getChildren()
     .then(res => res.json())
     .then(children => this.props.setChildren(children))
@@ -55,7 +62,7 @@ class Child extends Component {
 
       const makeButton = (sib) => {
         return <ChildButton label={sib.childName} key={sib.childName}
-                            onClick={e => this.props.set(sib)} />
+                            onClick={e => this.props.history.push('/children/' + sib._id)} />
       }
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
@@ -74,27 +81,25 @@ class Child extends Component {
         filter(act => act.type === 'samaritan')
       )(pathOr([], ['child', 'activities'], props))
 
+      const fitBadge = filter(badge => badge.name === 'fitness', props.badges)
+
+      if (fitnessPoints >= fitBadge.pop().pointsRequired) {
+        console.log('award fitness badge')
+      } else {
+        console.log('keep exercising...!')
+      }
 
   //pull children in family for Family Rank calc and order them by points
   //pull all children for CPC Rank calc and order them by points
-      const familyChildren = (child, sibs) => {
+        const familyChildren = (child, sibs) => {
         return compose(
-          sort(reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)),
           filter(sib => (sib.familyId === child.familyId) === true)
         )(sibs)
-      }
-
-      const rankAllChildren = (child, allKids) => {
-          return compose(
-            reverse(),
-            sort(reduce((acc, acts) => acc + acts.pointValue, 0, child.activities))
-          )(allKids)
       }
 
       const rankFamily = (child) => {
         return <li key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points</li>
       }
-
 
 
       return(
@@ -134,7 +139,7 @@ class Child extends Component {
           </ol>
           <h4>CPC Rank:</h4>
           <ol>
-            {map(rankFamily, rankAllChildren(props.child, props.children))}
+            {map(rankFamily, props.children)}
           </ol>
           <hr />
         </div>
@@ -144,7 +149,6 @@ class Child extends Component {
         </div>
         </div>
       )
-
     }
 
   }

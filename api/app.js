@@ -6,8 +6,8 @@ const HTTPError = require('node-http-error')
 const cors = require('cors')
 
 const {postFamily, postChildren, listChildren,
-       getChild, listBadges, getFamilies, getParks,
-       getPark} = require('./dal.js')
+       getChild, listBadges, getFamilies, getFamily, getParks,
+       getPark, getActivity, updateChild} = require('./dal.js')
 
 app.use(cors({
     credentials: true
@@ -36,7 +36,12 @@ app.get('/family', function(req, resp, next) {
   })
 })
 
-
+app.get('/family/:id', function(req, resp, next) {
+  getFamily(req.params.id, function(err, family) {
+    if (err) return next(new HTTPError(err.status, err.message, err))
+    resp.status(200).send(family)
+  })
+})
 
 
 
@@ -66,6 +71,23 @@ app.get('/children/:id', function(req, resp, next) {
     resp.status(200).send(child)
   })
 })
+
+app.get('/parks/:id/activitydetail/:id', function(req, resp, next) {
+  getActivity(req.params.id, function(err, activity) {
+    if (err) return next(new HTTPError(err.status, err.message, err))
+    resp.status(200).send(activity)
+  })
+})
+
+app.put('/children/:id', function(req, resp, next) {
+  updateChild(req.body, function(err, child) {
+    if (err) return next(new HTTPError(err.status, err.message, err))
+    resp.status(200).send(child)
+  })
+})
+
+
+
 
 /////////////////////////////////////////////
 //   badges

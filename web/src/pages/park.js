@@ -6,12 +6,12 @@ import Activity from '../components/activity'
 
 const getPark = (id) => fetch('http://localhost:8080/parks/' + id)
 
+
 class Park extends Component {
   componentDidMount() {
     getPark(this.props.match.params.id)
       .then(res => res.json())
       .then(park => this.props.setPark(park))
-
   }
 
 
@@ -67,7 +67,8 @@ const mapStateToProps = (state) => ({
   family: state.family,
   children: state.children,
   child: state.child,
-  parks: state.parks
+  parks: state.parks,
+  park: state.park
 })
 const mapActionsToProps = (dispatch) => ({
   setPark: (park) => dispatch({type: 'SET_PARK', payload: park})

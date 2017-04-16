@@ -31,6 +31,16 @@ const family = (state=[], action) => {
       return state
   }
 }
+
+const logInFamily = (state=[], action) => {
+  switch (action.type) {
+    case 'SET_LOGIN_FAMILY':
+      return action.payload
+    default:
+      return state
+  }
+}
+
 const families = (state=[], action) => {
   switch (action.type) {
     case 'SET_FAMILIES':
@@ -69,10 +79,18 @@ const child = (state=[], action) => {
   }
 }
 
-
 const parks = (state=[], action) => {
   switch (action.type) {
     case 'SET_PARKS':
+      return action.payload
+    default:
+      return state
+  }
+}
+
+const park = (state=[], action) => {
+  switch (action.type) {
+    case 'SET_PARK':
       return action.payload
     default:
       return state
@@ -88,12 +106,8 @@ const badges = (state=[], action) => {
   }
 }
 
-const initialValidate = {
-  eMail: '',
-  password: ''
-}
 
-const validate = (state=initialValidate, action) => {
+const validate = (state=[], action) => {
   switch (action.type) {
     case 'SET_VALIDATION':
       return action.payload
@@ -111,9 +125,11 @@ const store = createStore(
   combineReducers({
     family,
     families,
+    logInFamily,
     children,
     child,
     parks,
+    park,
     badges,
     validate
   })

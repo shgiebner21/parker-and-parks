@@ -66,7 +66,7 @@ class Children extends Component {
           optional={false}
         />
         <BasicButton>Done!</BasicButton>
-        <BasicButton onClick={e => props.submitAgain(props.children, props.family, props.history)} >
+        <BasicButton onClick={props.submitAgain(props.children, props.family, props.history)} >
           Enter another child</BasicButton>
         <a className='link f6' href='#'
            onClick={e => props.history.goBack()}>Cancel</a>
@@ -90,12 +90,14 @@ const mapActionsToProps = (dispatch) => ({
     e.preventDefault()
     if (children.childName.length === 0 || children.childAge.length === 0) {
       return alert('Required data is missing')
+    } else {
+      updateFamilyId(children, family.familyId)
+      postChildren(children).then(res => res.json()).then(res => {
+        dispatch({type: 'CLEAR_CHILDREN'})
+        history.push('/children')
+      }).catch(err => console.log(err.message))
+
     }
-    updateFamilyId(children, family.familyId)
-    postChildren(children).then(res => res.json()).then(res => {
-      dispatch({type: 'CLEAR_CHILDREN'})
-      history.push('/children')
-    }).catch(err => console.log(err.message))
   },
   submit: (history, children, family) => (e) => {
     e.preventDefault()

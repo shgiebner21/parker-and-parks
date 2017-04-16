@@ -29,6 +29,12 @@ function getFamilies(starkey, limit, cb) {
   })
 }
 
+function getFamily(id, cb) {
+  db.get(id, function(err, family) {
+    if (err) return cb(err)
+    cb(null, family)
+  })
+}
 
 /////////////////////////////////////////////
 //   children
@@ -58,6 +64,22 @@ function getChild(id, cb) {
     cb(null, child)
   })
 }
+
+function updateChild(child, cb) {
+  db.put(child, function(err, resp) {
+    if (err) return cb(err)
+    cb(null, resp)
+  })
+}
+
+
+function getActivity(id, cb) {
+  db.get(id, function(err, activity) {
+    if (err) return cb(err)
+    cb(null, activity)
+  })
+}
+
 
 /////////////////////////////////////////////
 //   badges
@@ -103,12 +125,15 @@ const returnDoc = row => row.doc
 const dal = {
   postFamily: postFamily,
   getFamilies: getFamilies,
+  getFamily: getFamily,
   postChildren: postChildren,
+  updateChild: updateChild,
   listChildren: listChildren,
   getChild: getChild,
   listBadges: listBadges,
   getParks: getParks,
-  getPark: getPark
+  getPark: getPark,
+  getActivity: getActivity
 }
 
 module.exports = dal

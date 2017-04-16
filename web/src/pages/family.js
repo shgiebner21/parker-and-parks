@@ -7,6 +7,8 @@ import BasicButton from '../components/basic-button'
 const getFamilies = () => fetch('http://localhost:8080/family')
 const getChildren = () => fetch('http://localhost:8080/children')
 
+
+
 class Family extends Component {
   componentDidMount () {
     getFamilies()
@@ -17,6 +19,7 @@ class Family extends Component {
     .then(children => this.props.setChildren(children))
   }
 
+// this.props.setFamily(findFamily(this.props.validate, this.props.families))
 
   render() {
     const props = this.props
@@ -52,11 +55,11 @@ const mapStateToProps = (state) => ({
   family: state.family,
   families: state.families,
   children: state.children
+
 })
 const mapActionsToProps = dispatch => ({
   setChildren: (children) => dispatch({type: 'SET_CHILDREN', payload: children}),
-  setFamilies: (families) => dispatch({type: 'SET_FAMILIES', payload: families}),
-  setFamily: (family) => dispatch({type: 'SET_FAMILY', payload: family})
+  setFamilies: (families) => dispatch({type: 'SET_FAMILIES', payload: families})
 })
 
 

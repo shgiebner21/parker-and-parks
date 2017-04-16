@@ -67,7 +67,8 @@ const mapStateToProps = (state) => ({
   family: state.family,
   children: state.children,
   child: state.child,
-  parks: state.parks
+  parks: state.parks,
+  park: state.park
 })
 const mapActionsToProps = (dispatch) => ({
   setPark: (park) => dispatch({type: 'SET_PARK', payload: park})

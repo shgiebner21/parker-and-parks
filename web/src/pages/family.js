@@ -1,23 +1,13 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, filter, compose} from 'ramda'
+import {map} from 'ramda'
 import BasicButton from '../components/basic-button'
 
 
 const getFamilies = () => fetch('http://localhost:8080/family')
 const getChildren = () => fetch('http://localhost:8080/children')
 
-const findFamily = (val, families) =>  {
-  const valMail = compose(
-    filter(eMail => eMail === val.eMail),
-    map(fam => fam.eMail)
-  )(families)
-  const valEMail = valMail.pop()
 
-console.log(map(fam => fam.eMail, families))
-  console.log((valEMail === map(fam => fam.eMail, families)))
-
-}
 
 class Family extends Component {
   componentDidMount () {
@@ -27,13 +17,12 @@ class Family extends Component {
   getChildren()
     .then(res => res.json())
     .then(children => this.props.setChildren(children))
-
   }
 
+// this.props.setFamily(findFamily(this.props.validate, this.props.families))
 
   render() {
     const props = this.props
-    findFamily(props.validate, props.families)
 
     const li = (child) => {
       if (child.familyId === props.family.familyId) {
@@ -65,14 +54,12 @@ class Family extends Component {
 const mapStateToProps = (state) => ({
   family: state.family,
   families: state.families,
-  children: state.children,
-  validate: state.validate
+  children: state.children
 
 })
 const mapActionsToProps = dispatch => ({
   setChildren: (children) => dispatch({type: 'SET_CHILDREN', payload: children}),
-  setFamilies: (families) => dispatch({type: 'SET_FAMILIES', payload: families}),
-  setFamily: (family) => dispatch({type: 'SET_FAMILY', payload: family})
+  setFamilies: (families) => dispatch({type: 'SET_FAMILIES', payload: families})
 })
 
 

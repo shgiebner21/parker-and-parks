@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, sort, reverse, path, pathOr} from 'ramda'
+import {map, reduce, filter, compose, path, pathOr, sort} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
@@ -8,10 +8,6 @@ const getChild = (id) => fetch('http://localhost:8080/children/' + id)
 const getChildren = () => fetch('http://localhost:8080/children')
 const getBadges = () => fetch('http://localhost:8080/badges')
 const getParks = () => fetch('http://localhost:8080/parks')
-
-const diff = (a, b) => {
-  return a - b
-}
 
 
 class Child extends Component {
@@ -88,13 +84,6 @@ class Child extends Component {
         )(sibs)
       }
 
-      const rankAllChildren = (child, allKids) => {
-          return compose(
-            reverse(),
-            sort(reduce((acc, acts) => acc + acts.pointValue, 0, child.activities))
-          )(allKids)
-      }
-
       const rankFamily = (child) => {
         return <li key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points</li>
       }
@@ -147,7 +136,6 @@ class Child extends Component {
         </div>
         </div>
       )
-
     }
 
   }

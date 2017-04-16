@@ -65,6 +65,14 @@ function getChild(id, cb) {
   })
 }
 
+function updateChild(child, cb) {
+  db.put(child, function(err, resp) {
+    if (err) return cb(err)
+    cb(null, resp)
+  })
+}
+
+
 function getActivity(id, cb) {
   db.get(id, function(err, activity) {
     if (err) return cb(err)
@@ -119,6 +127,7 @@ const dal = {
   getFamilies: getFamilies,
   getFamily: getFamily,
   postChildren: postChildren,
+  updateChild: updateChild,
   listChildren: listChildren,
   getChild: getChild,
   listBadges: listBadges,

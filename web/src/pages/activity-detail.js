@@ -6,18 +6,17 @@ import Footer from '../components/footer'
 
 const getChild = (id) => fetch('http://localhost:8080/children/' + id)
 
-const putActivity = (child, action) =>
-
-  { const activitiesLens = lensProp('activities')
-    const updatedChild = set(activitiesLens, append(action, child.activities), child)
-    fetch('http://localhost:8080/children/' + child._id, {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'PUT',
-      body: JSON.stringify(updatedChild)
-    })
-  }
+const putActivity = (child, action) => {
+  const activitiesLens = lensProp('activities')
+  const updatedChild = set(activitiesLens, append(action, child.activities), child)
+  fetch('http://localhost:8080/children/' + child._id, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify(updatedChild)
+  })
+}
 
 class ActivityDetail extends Component  {
   componentDidMount() {
@@ -62,7 +61,7 @@ class ActivityDetail extends Component  {
                 <p className="f6 f5-ns fw6 lh-title black mv0">{action.story}</p>
               </div>
               <hr />
-              <form onSubmit={props.appendChild(props.history, props.child, props.parks, props.children, action)}>
+              <form onSubmit={props.appendChild(props.history, props.child, props.parks, props.park, props.children, action)}>
                 <div>
                   <h3>Did you {action.body}</h3>
                     <div className="dtc w2 w3-ns v-mid">
@@ -108,14 +107,13 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) => ({
   set: (child) => dispatch({type: 'SET_CHILD', payload: child}),
   setParks: (parks) => dispatch({type: 'SET_PARKS', payload: parks}),
-  appendChild: (history, child, parks, children, action) => (e) => {
+  appendChild: (history, child, parks, park, children, action) => (e) => {
     e.preventDefault()
       putActivity(child, action)
     fetch('http://localhost:8080/children')
       .then(res => res.json())
-      .then(children => dispatch({type: 'SET_CHILDREN',
-      payload: children}))
-      history.push('/parks/' + parks._id)
+      .then(children => dispatch({type: 'SET_CHILDREN', payload: children}))
+      history.push('/parks/' + park._id)
   }
 })
 

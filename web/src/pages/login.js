@@ -38,8 +38,8 @@ const setFamily = (val, families) => {
 
   const foundFamily = filter(propEq('eMail', famEMail), families)
   const foundFamilyObjId = foundFamily.pop()._id
-console.log(foundFamilyObjId)
-return foundFamilyObjId
+
+  return foundFamilyObjId
 
 }
 

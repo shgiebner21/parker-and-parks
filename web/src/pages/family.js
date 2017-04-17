@@ -6,11 +6,17 @@ import BasicButton from '../components/basic-button'
 
 const getFamilies = () => fetch('http://localhost:8080/family')
 const getChildren = () => fetch('http://localhost:8080/children')
-
+const getFamily = (id) => fetch('http://localhost:8080/family/' + id)
 
 
 class Family extends Component {
   componentDidMount () {
+    console.log('Inside family.js, match.params is ', this.props.match.params)
+    if (this.props.match.isExact === false) {
+      getFamily(this.props.logInFamily._id)
+        .then(res => res.json())
+        .then(family => this.props.setFamily(family))
+    }
     getFamilies()
     .then(res => res.json())
     .then(families => this.props.setFamilies(families))
@@ -77,12 +83,14 @@ class Family extends Component {
 const mapStateToProps = (state) => ({
   family: state.family,
   families: state.families,
-  children: state.children
+  children: state.children,
+  logInFamily: state.logInFamily
 
 })
 const mapActionsToProps = dispatch => ({
   setChildren: (children) => dispatch({type: 'SET_CHILDREN', payload: children}),
-  setFamilies: (families) => dispatch({type: 'SET_FAMILIES', payload: families})
+  setFamilies: (families) => dispatch({type: 'SET_FAMILIES', payload: families}),
+  setFamily: (family) => dispatch({type: 'SET_FAMILY', payload: family})
 })
 
 

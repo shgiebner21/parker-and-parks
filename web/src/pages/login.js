@@ -34,14 +34,12 @@ const setFamily = (val, families) => {
     filter(eMail => eMail === val.eMail),
     map(fam => fam.eMail)
   )(families)
-
   const famEMail = famMail.pop()
+
   const foundFamily = filter(propEq('eMail', famEMail), families)
-  const foundFamilyObj = foundFamily.pop()
-  console.log(foundFamilyObj._id)
-  getFamily(foundFamilyObj._id)
-    // .then(res => res.json())
-    // .then(family => this.props.setFamilyFinally(family))
+  const foundFamilyObjId = foundFamily.pop()._id
+console.log(foundFamilyObjId)
+return foundFamilyObjId
 
 }
 
@@ -97,16 +95,15 @@ const mapActionsToProps = (dispatch) => ({
   submit: (validate, families, history, famEMail) => (e) => {
     e.preventDefault()
     dispatch({type: 'SET_VALIDATION', payload: validate})
-    if (validate.eMail === famEMail) {
-      setFamily(validate, families).then(res => res.json())
-        .then(fam => {
-          dispatch({type: 'SET_LOGIN_FAMILY', payload: fam})
-        })
-    } else {
-      alert('eMail or password is incorrect.')
-    }
-  }
-})
+
+    getFamily(setFamily(validate, families)).then(res => res.json())
+      .then(family => {
+        dispatch({type: 'SET_LOGIN_FAMILY', payload: family})
+        history.push('/family/' + family._id)
+      })
+      }
+
+  })
 const connector = connect(mapStateToProps, mapActionsToProps)
 
 export default connector(Login)

@@ -3,8 +3,6 @@
 ### TODO list for today, Monday April 10th
     - Child page - Family Rank calculation...sort of working...__think I have to give sort(func, xx) a function__.
     - Child page - CPC Rank calculation...this is working by child id, NOT by points...__not sure why__.
-
-  - Login button - now working and moving to Family page, BUT this route does not bring in family yet...
   
   - __Calculation for when badge earned__ - needs append to child also
     - this will go in activity-detail.js, inside putActivity function
@@ -20,6 +18,7 @@
 
   #### TODO's completed
     - Completed Activity appended to Children.child
+    - Login button - now working and moving to Family page, BUT this route does not bring in family yet...
     - Add More Children button - wire up
 
     - Child page, Sibling buttons need to refresh for new Child selected (used set() to change State

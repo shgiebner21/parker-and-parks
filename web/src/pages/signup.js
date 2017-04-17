@@ -127,8 +127,9 @@ const mapActionsToProps = (dispatch) => ({
   changePassword: (e) => dispatch({type: 'SET_PASSWORD', payload: e.target.value}),
   submit: (history, family) => (e) => {
     e.preventDefault()
-    if (family.parentFirst.length === 0 || family.parentLast.length === 0 || family.eMail.length === 0
-        || family.password.length === 0) {
+    console.log(family)
+    if (family.length === 0 || family.parentFirst.length < 2 || family.parentLast.length < 2 || family.eMail.length < 2
+        || family.password.length < 2) {
           return alert('Required data is missing.')
     } else if(family.id) {
       putFamily(family).then(res => res.json())

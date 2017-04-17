@@ -62,7 +62,7 @@ class Child extends Component {
 
       const makeButton = (sib) => {
         return <ChildButton label={sib.childName} key={sib.childName}
-                            onClick={e => this.props.history.push('/children/' + sib._id)} />
+                            onClick={e => this.props.setChild(sib)} />
       }
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
@@ -83,11 +83,11 @@ class Child extends Component {
 
       const fitBadge = filter(badge => badge.name === 'fitness', props.badges)
 
-      if (fitnessPoints >= fitBadge.pop().pointsRequired) {
-        console.log('award fitness badge')
-      } else {
-        console.log('keep exercising...!')
-      }
+      // if (fitnessPoints >= fitBadge.pop().pointsRequired) {
+      //   console.log('award fitness badge')
+      // } else {
+      //   console.log('keep exercising...!')
+      // }
 
   //pull children in family for Family Rank calc and order them by points
   //pull all children for CPC Rank calc and order them by points

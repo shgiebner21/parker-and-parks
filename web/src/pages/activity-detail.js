@@ -87,7 +87,7 @@ class ActivityDetail extends Component  {
                         <div className="dtc w2 w3-ns v-mid">
                           <img src='/parker-paw-2.png' className="ba b--black-10 db br-100 w2 h2 w3-ns h3-ns"
                             alt='parker bear paw'/>
-                          <button onClick={e => props.history.goBack()}>No</button>
+                          <button onClick={props.returnToPark(props.history, props.park)}>No</button>
                         </div>
                         <div className="dtc v-mid pl3">
                           <h1 className="f6 f5-ns fw6 lh-title black mv0">I changed my mind.</h1>
@@ -97,14 +97,13 @@ class ActivityDetail extends Component  {
               </form>
               <hr />
               <div>
-                
+
                 <Footer />
               </div>
             </div>
         </div>
       )
     }
-
   }
 }
 
@@ -127,6 +126,10 @@ const mapActionsToProps = (dispatch) => ({
       .then(res => res.json())
       .then(children => dispatch({type: 'SET_CHILDREN', payload: children}))
       history.push('/parks/' + park._id)
+  },
+  returnToPark: (history, park) => (e) => {
+    e.preventDefault()
+    history.push('/parks/' + park._id)
   }
 })
 

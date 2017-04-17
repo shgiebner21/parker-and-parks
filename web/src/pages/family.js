@@ -11,7 +11,6 @@ const getFamily = (id) => fetch('http://localhost:8080/family/' + id)
 
 class Family extends Component {
   componentDidMount () {
-    console.log('Inside family.js, match.params is ', this.props.match.params)
     if (this.props.match.isExact === false) {
       getFamily(this.props.logInFamily._id)
         .then(res => res.json())

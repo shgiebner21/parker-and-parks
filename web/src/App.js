@@ -9,16 +9,16 @@ import Family from './pages/family'
 import Child from './pages/child'
 import Park from './pages/park'
 import ActivityDetail from './pages/activity-detail'
+import Header from './components/header'
 
 
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>  
+      <BrowserRouter>
         <div className='pa1'>
           <header>
-            <h1 className="bg-light-green mw7 center pa1 br2-ns ba b--black-10 tc">
-              Parker and Parks</h1>
+            <Header />
           </header>
           <main>
             <Switch>

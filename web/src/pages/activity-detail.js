@@ -97,6 +97,7 @@ class ActivityDetail extends Component  {
               </form>
               <hr />
               <div>
+                
                 <Footer />
               </div>
             </div>

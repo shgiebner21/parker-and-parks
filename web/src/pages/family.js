@@ -69,7 +69,7 @@ class Family extends Component {
           <article className='pa2 pa5-ns'>
   <h1 className='f4 ma0 bold center mw6'>Children</h1>
   <ul className='list pl0 ml0 center mw6 ba b--light-silver br2'>
-    {map(li, props.children)}
+      {map(li, props.children)}
 
   </ul>
 </article>

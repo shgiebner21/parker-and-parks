@@ -1,11 +1,11 @@
 # Open Items and Parking Lot
 
 ### TODO list for today, Monday April 10th
-    - Child page - Family Rank calculation...sort of working...__think I have to give sort(func, xx) a function__.
-    - Child page - CPC Rank calculation...this is working by child id, NOT by points...__not sure why__.
+    - Child page - Family Rank calculation...__think I have to give sort(func, xx) a function__.
+    - Child page - CPC Rank calculation...this is working by child id, NOT by points....
   
   - __Calculation for when badge earned__ - needs append to child also
-    - this will go in activity-detail.js, inside putActivity function
+        - append is working, logic is not complete & need to find a way to put in mapActionToProps
     - Blank Login should not be allowed (this should mirror blank Signup code)
   - Child page, blank children should not be allowed...__code is there but only partially working__...
 
@@ -25,6 +25,7 @@
     - Blank Signup should not be allowed
     - Activity detail page needs props wired up
     - Cancelled Activity should return to Park page
+    - Activity page, Cancel __also appends activity to Child object__.
 
 
 #### Database
@@ -52,7 +53,7 @@
   - Need stories and images for both parks.
 
 #### Activity-detail page
-  - Cancel button is appending selected activity...!
+  - __This is fixed now__, no longer appending to Child object.  Cancel button is appending selected activity...!
 
 
 

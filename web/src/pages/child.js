@@ -97,7 +97,12 @@ class Child extends Component {
         )(sibs)
       }
 
-      const rankFamily = (child) => {
+      // const reducer = reduce((acc, acts) => acc + acts.pointValue, 0, )
+      // const findDiff = (a, b) =>  { reducer(a) - reducer(b) }
+      // console.log(sort(findDiff, props.children))
+
+
+      const rankGroup = (child) => {
         return <li key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points</li>
       }
 
@@ -135,11 +140,11 @@ class Child extends Component {
           </ul>
           <h4>Family Rank:</h4>
           <ol>
-            {map(rankFamily, familyChildren(props.child, props.children))}
+            {map(rankGroup, familyChildren(props.child, props.children))}
           </ol>
           <h4>CPC Rank:</h4>
           <ol>
-            {map(rankFamily, props.children)}
+            {map(rankGroup, props.children)}
           </ol>
           <hr />
         </div>

@@ -40,7 +40,6 @@ const setFamily = (val, families) => {
   const foundFamilyObjId = foundFamily.pop()._id
 
   return foundFamilyObjId
-
 }
 
 
@@ -50,8 +49,6 @@ class Login extends Component {
       .then(res => res.json())
       .then(families => this.props.set(families))
   }
-
-
 
   render() {
     const props = this.props

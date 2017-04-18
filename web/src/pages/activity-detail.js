@@ -7,28 +7,39 @@ import Footer from '../components/footer'
 
 const getChild = (id) => fetch('http://localhost:8080/children/' + id)
 
-// if (fitnessPoints >= fitBadge.pointsRequired) {
-//   putBadge(props.child, fitBadge)
-// } else {
-//   console.log('keep exercising...!')
-// }
+const putActivity = (child, action, badges) => {
 
-const putActivity = (child, action, fitBadge) => {
   const activitiesLens = lensProp('activities')
   const badgeLens = lensProp('badges')
   let updatedChild = set(activitiesLens, append(action, child.activities), child)
 
+  const badgeObj = filter(badge => badge.name === action.type, badges).pop()
+  console.log('activities for badge points ', filter(act => act.type === action.type, updatedChild.activities))
+  console.log('updatedChild.activities are ', updatedChild.activities)
+  const badgeActivities = filter(act => act.type === action.type, updatedChild.activities)
 
-  updatedChild = set(badgeLens, append(fitBadge, child.badges), updatedChild)
+  if (reduce((acc, act) => acc + act.pointValue, 0, badgeActivities) >= badgeObj.pointsRequired) {
+    updatedChild = set(badgeLens, append(badgeObj, child.badges), updatedChild)
 
-  fetch('http://localhost:8080/children/' + child._id, {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: 'PUT',
-    body: JSON.stringify(updatedChild)
-  })
+    fetch('http://localhost:8080/children/' + child._id, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify(updatedChild)
+    })
+  } else {
+    fetch('http://localhost:8080/children/' + child._id, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify(updatedChild)
+    })
+  }
 }
+
+
 
 
 class ActivityDetail extends Component  {
@@ -47,22 +58,6 @@ class ActivityDetail extends Component  {
 
 // Trying to append earned badge to child
     const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
-    const fitnessPoints = compose(
-      reduce((acc, acts) => acc + acts.pointValue, 0, ),
-      filter(act => act.type === 'fitness')
-    )(pathOr([], ['child', 'activities'], props))
-
-    const scholarPoints = compose(
-      reduce((acc, acts) => acc + acts.pointValue, 0, ),
-      filter(act => act.type === 'learning')
-    )(pathOr([], ['child', 'activities'], props))
-
-    const samaritanPoints = compose(
-      reduce((acc, acts) => acc + acts.pointValue, 0, ),
-      filter(act => act.type === 'samaritan')
-    )(pathOr([], ['child', 'activities'], props))
-
-    const fitBadge = (filter(badge => badge.name === 'fitness', props.badges)).pop()
 
 
     if (!path(['child', 'childName'], props)) {
@@ -70,7 +65,6 @@ class ActivityDetail extends Component  {
               <h2></h2>
             </div>)
     } else {
-
 
     return(
         <div>
@@ -95,9 +89,10 @@ class ActivityDetail extends Component  {
                 <p className="f6 f5-ns fw6 lh-title black mv0">{action.story}</p>
               </div>
               <hr />
-              <form onSubmit={props.appendChild(props.history, props.child, props.parks, props.park, props.children, action, fitnessPoints, fitBadge)}>
+              <form onSubmit={props.appendChild(props.history, props.child, props.parks,
+                              props.park, props.children, action, props.badges)}>
                 <div>
-                  <h3>Did you {action.body}</h3>
+                  <h3>Did you {action.body} ?</h3>
                     <div className="dtc w2 w3-ns v-mid">
                       <img src='/parker-paw-2.png' className="ba b--black-10 db br-100 w2 h2 w3-ns h3-ns"
                         alt='parker bear paw'/>
@@ -142,15 +137,12 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) => ({
   set: (child) => dispatch({type: 'SET_CHILD', payload: child}),
   setParks: (parks) => dispatch({type: 'SET_PARKS', payload: parks}),
-  appendChild: (history, child, parks, park, children, action, fitnessPoints, fitBadge) => (e) => {
+  appendChild: (history, child, parks, park, children, action, badges) => (e) => {
     e.preventDefault()
-    putActivity(child, action, fitBadge)
-
-
+    putActivity(child, action, badges)
     fetch('http://localhost:8080/children/' + child._id)
       .then(res => res.json())
       .then(child => dispatch({type: 'SET_CHILD', payload: child}))
-
     fetch('http://localhost:8080/children')
       .then(res => res.json())
       .then(children => dispatch({type: 'SET_CHILDREN', payload: children}))

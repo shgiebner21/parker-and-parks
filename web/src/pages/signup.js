@@ -5,8 +5,6 @@ import TextField from '../components/input-text'
 import BasicButton from '../components/basic-button'
 
 
-const getFamily = (id) => fetch('http://localhost:8080/family' + id)
-
 const updateFamilyId = (family) => {
   return family.familyId = family.parentFirst + family.parentLast +
     family.eMail + family.cellPhone
@@ -30,13 +28,6 @@ const putFamily = (family) => fetch('http://localhost:8080/family' + family.id, 
 })
 
 class Signup extends Component {
-  componentDidMount() {
-    if (this.props.match.params.id) {
-      getFamily(this.props.match.params.id)
-        .then(res => res.json())
-        .then(family => this.props.set(family))
-    }
-  }
 
   render() {
     const props = this.props
@@ -133,7 +124,7 @@ const mapActionsToProps = (dispatch) => ({
   changePassword: (e) => dispatch({type: 'SET_PASSWORD', payload: e.target.value}),
   submit: (history, family) => (e) => {
     e.preventDefault()
-    console.log(family)
+
     if (family.length === 0 || family.parentFirst.length < 2 || family.parentLast.length < 2 || family.eMail.length < 2
         || family.password.length < 2) {
           return alert('Required data is missing.')

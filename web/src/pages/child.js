@@ -68,6 +68,7 @@ class Child extends Component {
       }
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
+
       const fitnessPoints = compose(
         reduce((acc, acts) => acc + acts.pointValue, 0, ),
         filter(act => act.type === 'fitness')

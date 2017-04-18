@@ -20,13 +20,13 @@ class Park extends Component {
     const park = filter(park => park._id === props.match.params.id, props.parks).pop()
 
       const li = (activity) => {
-        return ( <li key={activity.id}>
+        return ( <a key={activity.id}>
                   <Activity
                     label={activity.name}
                     value={activity.pointValue}
                     image={activity.image}
                     onClick={e => this.props.history.push('/activitydetail/' + activity.id)} />
-                </li>  )}
+                </a>  )}
 
       return(
         <div>

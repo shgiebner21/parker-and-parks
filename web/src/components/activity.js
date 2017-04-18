@@ -19,7 +19,7 @@ const Activity = (props) => {
             <button
               className="f6 button-reset bg-white ba b--black-10 dim pointer pv1 black-60"
               onClick={props.onClick}
-              type="submit">+ This One!</button>
+              type="submit">+ Pick me!</button>
 
           </div>
         </div>

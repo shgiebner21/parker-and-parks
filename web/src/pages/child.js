@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, path, pathOr, sort} from 'ramda'
+import {map, reduce, filter, compose, path, pathOr,
+        lensProp, set, append} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
@@ -8,6 +9,24 @@ const getChild = (id) => fetch('http://localhost:8080/children/' + id)
 const getChildren = () => fetch('http://localhost:8080/children')
 const getBadges = () => fetch('http://localhost:8080/badges')
 const getParks = () => fetch('http://localhost:8080/parks')
+
+const putBadge = (child, badge) => {
+  const badgeLens = lensProp('badges')
+  const updatedChild = set(badgeLens, append(badge, child.badges), child)
+  fetch('http://localhost:8080/children/' + child._id, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'PUT',
+    body: JSON.stringify(updatedChild)
+  })
+}
+
+// if (fitnessPoints >= fitBadge.pointsRequired) {
+//   putBadge(props.child, fitBadge)
+// } else {
+//   console.log('keep exercising...!')
+// }
 
 
 class Child extends Component {
@@ -31,6 +50,7 @@ class Child extends Component {
       .then(res => res.json())
       .then(parks => this.props.setParks(parks))
   }
+
 
   render() {
     const props = this.props
@@ -81,13 +101,8 @@ class Child extends Component {
         filter(act => act.type === 'samaritan')
       )(pathOr([], ['child', 'activities'], props))
 
-      const fitBadge = filter(badge => badge.name === 'fitness', props.badges)
+      const fitBadge = (filter(badge => badge.name === 'fitness', props.badges)).pop()
 
-      // if (fitnessPoints >= fitBadge.pop().pointsRequired) {
-      //   console.log('award fitness badge')
-      // } else {
-      //   console.log('keep exercising...!')
-      // }
 
   //pull children in family for Family Rank calc and order them by points
   //pull all children for CPC Rank calc and order them by points
@@ -155,9 +170,14 @@ class Child extends Component {
         </div>
       )
     }
-
   }
 }
+
+// if (fitnessPoints >= fitBadge.pointsRequired) {
+//   putBadge(props.child, fitBadge)
+// } else {
+//   console.log('keep exercising...!')
+// }
 
 const mapStateToProps = (state) => ({
   family: state.family,

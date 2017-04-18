@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {filter, lensProp, set, append, path, compose, reduce,
-        pathOr, props} from 'ramda'
+import {filter, lensProp, set, append, path} from 'ramda'
 import Footer from '../components/footer'
 
 
@@ -19,14 +18,6 @@ const putActivity = (child, action) => {
   })
 }
 
-const checkForBadge = (child, action) => {
-  const fitnessPoints = compose(
-    reduce((acc, acts) => acc + acts.pointValue, 0, ),
-    filter(act => act.type === 'fitness')
-  )(pathOr([], ['child', 'activities'], props))
-  console.log('in act-detail ', fitnessPoints)
-  console.log('in act-detail ', child.activities)
-}
 
 
 class ActivityDetail extends Component  {
@@ -122,6 +113,7 @@ const mapActionsToProps = (dispatch) => ({
   appendChild: (history, child, parks, park, children, action) => (e) => {
     e.preventDefault()
     putActivity(child, action)
+    
     fetch('http://localhost:8080/children')
       .then(res => res.json())
       .then(children => dispatch({type: 'SET_CHILDREN', payload: children}))

@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import Welcome from '../components/welcome'
 import BasicButton from '../components/basic-button'
-import Footer from '../components/footer'
 
 
 class LandingPage extends Component {
@@ -10,7 +9,7 @@ class LandingPage extends Component {
     return (
       <div
         className='athelas vh-100 dt w-100 tc bg-dark-gray white cover'
-        style={{ background: "url('images/hamptonpark.jpg') no-repeat center" }}
+        style={{ background: "url('/hampton-park-bandstand.jpg') no-repeat center", opacity: 0.9 }}
       >
         <div className='bg-black-50 vh-100 pb5 pb6-m pb7-l'>
           <header className='pa1'>

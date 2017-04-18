@@ -41,7 +41,7 @@ class Signup extends Component {
   render() {
     const props = this.props
     return(
-      <div>
+      <div className='bg-light-green'>
         <h2>Signup</h2>
         <form onSubmit={props.submit(props.history, props.family)}>
           <TextField label='Parent First Name'
@@ -105,6 +105,12 @@ class Signup extends Component {
           <a className='link f6' href='#'
              onClick={e => props.history.goBack()}>Cancel</a>
         </form>
+        <footer className="ph2-m ph6-l mid-gray ma2">
+          <div className="tc mt3">
+            <img className='h4 w4 ba b--black-05 pa2' src='/CPC-small-logo.png'
+              alt='CPC small logo'/>
+          </div>
+        </footer>
       </div>
     )
   }

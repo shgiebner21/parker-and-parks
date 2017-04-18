@@ -20,7 +20,7 @@ const Welcome = props => {
               <BasicButton>About Parker</BasicButton>
             </div>
             <span className='f5 db black-70'>
-              Welcome to my playground app!
+              Welcome to my playground!
             </span>
             <p className='black-70 f6'>{txt2}</p>
           </div>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, path, pathOr, sort} from 'ramda'
+import {map, reduce, filter, compose, path, pathOr} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
@@ -8,6 +8,7 @@ const getChild = (id) => fetch('http://localhost:8080/children/' + id)
 const getChildren = () => fetch('http://localhost:8080/children')
 const getBadges = () => fetch('http://localhost:8080/badges')
 const getParks = () => fetch('http://localhost:8080/parks')
+
 
 
 class Child extends Component {
@@ -31,6 +32,7 @@ class Child extends Component {
       .then(res => res.json())
       .then(parks => this.props.setParks(parks))
   }
+
 
   render() {
     const props = this.props
@@ -66,6 +68,7 @@ class Child extends Component {
       }
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
+
       const fitnessPoints = compose(
         reduce((acc, acts) => acc + acts.pointValue, 0, ),
         filter(act => act.type === 'fitness')
@@ -81,13 +84,6 @@ class Child extends Component {
         filter(act => act.type === 'samaritan')
       )(pathOr([], ['child', 'activities'], props))
 
-      const fitBadge = filter(badge => badge.name === 'fitness', props.badges)
-
-      // if (fitnessPoints >= fitBadge.pop().pointsRequired) {
-      //   console.log('award fitness badge')
-      // } else {
-      //   console.log('keep exercising...!')
-      // }
 
   //pull children in family for Family Rank calc and order them by points
   //pull all children for CPC Rank calc and order them by points
@@ -97,15 +93,9 @@ class Child extends Component {
         )(sibs)
       }
 
-      // const reducer = reduce((acc, acts) => acc + acts.pointValue, 0, )
-      // const findDiff = (a, b) =>  { reducer(a) - reducer(b) }
-      // console.log(sort(findDiff, props.children))
-
-
       const rankGroup = (child) => {
         return <li key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points</li>
       }
-
 
       return(
         <div className='ma2'>
@@ -155,9 +145,9 @@ class Child extends Component {
         </div>
       )
     }
-
   }
 }
+
 
 const mapStateToProps = (state) => ({
   family: state.family,

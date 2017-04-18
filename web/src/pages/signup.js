@@ -5,8 +5,6 @@ import TextField from '../components/input-text'
 import BasicButton from '../components/basic-button'
 
 
-const getFamily = (id) => fetch('http://localhost:8080/family' + id)
-
 const updateFamilyId = (family) => {
   return family.familyId = family.parentFirst + family.parentLast +
     family.eMail + family.cellPhone
@@ -30,18 +28,11 @@ const putFamily = (family) => fetch('http://localhost:8080/family' + family.id, 
 })
 
 class Signup extends Component {
-  componentDidMount() {
-    if (this.props.match.params.id) {
-      getFamily(this.props.match.params.id)
-        .then(res => res.json())
-        .then(family => this.props.set(family))
-    }
-  }
 
   render() {
     const props = this.props
     return(
-      <div>
+      <div className='bg-light-green'>
         <h2>Signup</h2>
         <form onSubmit={props.submit(props.history, props.family)}>
           <TextField label='Parent First Name'
@@ -105,6 +96,12 @@ class Signup extends Component {
           <a className='link f6' href='#'
              onClick={e => props.history.goBack()}>Cancel</a>
         </form>
+        <footer className="ph2-m ph6-l mid-gray ma2">
+          <div className="tc mt3">
+            <img className='h4 w4 ba b--black-05 pa2' src='/CPC-small-logo.png'
+              alt='CPC small logo'/>
+          </div>
+        </footer>
       </div>
     )
   }
@@ -127,7 +124,7 @@ const mapActionsToProps = (dispatch) => ({
   changePassword: (e) => dispatch({type: 'SET_PASSWORD', payload: e.target.value}),
   submit: (history, family) => (e) => {
     e.preventDefault()
-    console.log(family)
+
     if (family.length === 0 || family.parentFirst.length < 2 || family.parentLast.length < 2 || family.eMail.length < 2
         || family.password.length < 2) {
           return alert('Required data is missing.')

@@ -1,32 +1,45 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {filter, lensProp, set, append, path, compose, reduce,
-        pathOr, props} from 'ramda'
+import {filter, lensProp, set, append, path, compose,
+        reduce, pathOr} from 'ramda'
 import Footer from '../components/footer'
 
 
 const getChild = (id) => fetch('http://localhost:8080/children/' + id)
 
-const putActivity = (child, action) => {
+const putActivity = (child, action, badges) => {
+
   const activitiesLens = lensProp('activities')
-  const updatedChild = set(activitiesLens, append(action, child.activities), child)
-  fetch('http://localhost:8080/children/' + child._id, {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: 'PUT',
-    body: JSON.stringify(updatedChild)
-  })
+  const badgeLens = lensProp('badges')
+  let updatedChild = set(activitiesLens, append(action, child.activities), child)
+
+  const badgeObj = filter(badge => badge.name === action.type, badges).pop()
+  console.log('activities for badge points ', filter(act => act.type === action.type, updatedChild.activities))
+  console.log('updatedChild.activities are ', updatedChild.activities)
+  const badgeActivities = filter(act => act.type === action.type, updatedChild.activities)
+
+  if (reduce((acc, act) => acc + act.pointValue, 0, badgeActivities) >= badgeObj.pointsRequired) {
+    updatedChild = set(badgeLens, append(badgeObj, child.badges), updatedChild)
+
+    fetch('http://localhost:8080/children/' + child._id, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify(updatedChild)
+    })
+  } else {
+    fetch('http://localhost:8080/children/' + child._id, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify(updatedChild)
+    })
+  }
 }
 
-const checkForBadge = (child, action) => {
-  const fitnessPoints = compose(
-    reduce((acc, acts) => acc + acts.pointValue, 0, ),
-    filter(act => act.type === 'fitness')
-  )(pathOr([], ['child', 'activities'], props))
-  console.log('in act-detail ', fitnessPoints)
-  console.log('in act-detail ', child.activities)
-}
+
 
 
 class ActivityDetail extends Component  {
@@ -40,14 +53,18 @@ class ActivityDetail extends Component  {
   render() {
     const props = this.props
 
-//    if (!path(['parks', 'activity'], props)) {
+    const action = filter(act => act.id === Number(props.match.params.id),
+      props.park.activity).pop()
+
+// Trying to append earned badge to child
+    const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
+
+
     if (!path(['child', 'childName'], props)) {
       return (<div>
               <h2></h2>
             </div>)
     } else {
-      const action = filter(act => act.id === Number(props.match.params.id),
-        props.park.activity).pop()
 
     return(
         <div>
@@ -72,9 +89,10 @@ class ActivityDetail extends Component  {
                 <p className="f6 f5-ns fw6 lh-title black mv0">{action.story}</p>
               </div>
               <hr />
-              <form onSubmit={props.appendChild(props.history, props.child, props.parks, props.park, props.children, action)}>
+              <form onSubmit={props.appendChild(props.history, props.child, props.parks,
+                              props.park, props.children, action, props.badges)}>
                 <div>
-                  <h3>Did you {action.body}</h3>
+                  <h3>Did you {action.body} ?</h3>
                     <div className="dtc w2 w3-ns v-mid">
                       <img src='/parker-paw-2.png' className="ba b--black-10 db br-100 w2 h2 w3-ns h3-ns"
                         alt='parker bear paw'/>
@@ -119,9 +137,12 @@ const mapStateToProps = (state) => ({
 const mapActionsToProps = (dispatch) => ({
   set: (child) => dispatch({type: 'SET_CHILD', payload: child}),
   setParks: (parks) => dispatch({type: 'SET_PARKS', payload: parks}),
-  appendChild: (history, child, parks, park, children, action) => (e) => {
+  appendChild: (history, child, parks, park, children, action, badges) => (e) => {
     e.preventDefault()
-    putActivity(child, action)
+    putActivity(child, action, badges)
+    fetch('http://localhost:8080/children/' + child._id)
+      .then(res => res.json())
+      .then(child => dispatch({type: 'SET_CHILD', payload: child}))
     fetch('http://localhost:8080/children')
       .then(res => res.json())
       .then(children => dispatch({type: 'SET_CHILDREN', payload: children}))

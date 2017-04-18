@@ -40,7 +40,6 @@ const setFamily = (val, families) => {
   const foundFamilyObjId = foundFamily.pop()._id
 
   return foundFamilyObjId
-
 }
 
 
@@ -51,14 +50,12 @@ class Login extends Component {
       .then(families => this.props.set(families))
   }
 
-
-
   render() {
     const props = this.props
 
 
     return(
-      <div>
+      <div className='bg-light-green'>
       <h2>Login</h2>
       <form onSubmit={props.submit(props.validate, props.families, props.history, currentFamily(props.families, props.validate))}>
       <TextField label='E-Mail address'
@@ -77,6 +74,12 @@ class Login extends Component {
       <a className='link f6' href='#'
          onClick={e => props.history.goBack()}>Cancel</a>
       </form>
+      <footer className="ph2-m ph6-l mid-gray ma2">
+        <div className="tc mt3">
+          <img className='h4 w4 ba b--black-05 pa2' src='/CPC-small-logo.png'
+            alt='CPC small logo'/>
+        </div>
+      </footer>
       </div>
     )
   }

@@ -7,6 +7,10 @@
   - __Calculation for when badge earned__ - needs append to child also
         - append is working, logic is not complete & need to find a way to put in mapActionToProps
     - Blank Login should not be allowed (this should mirror blank Signup code)
+  - Document the app.
+  - Make sure the Parks have pictures and stories.
+  
+    
   - Child page, blank children should not be allowed...__code is there but only partially working__...
 
   - Wire up CouchDb

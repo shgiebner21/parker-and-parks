@@ -28,32 +28,24 @@
     - Activity page, Cancel __also appends activity to Child object__.
 
 
-#### Database
-  - Children is sometimes being duplicated in an array in the Children object...not sure why yet.
-    - Think I solved this by blocking POST of blank children.
+#### Database - Complete
 
-#### Home page
+#### Home page - Complete
 
-#### Signup page
-  - Blank Signup has been blocked
-    - Allows blank family, need to stop that ability.
-
+#### Signup page - Complete
 
 #### Login button is not wired up yet
   - Signup is blocked, same code should work for Login when I get to it.
     - Make sure blank Login is not allowed.
 
-
-#### Children page - 'Enter another Child' button is not yet working.  Think CSS related.
+#### Children page - Complete
 
 #### Child page
-
 
 #### Parks
   - Need stories and images for both parks.
 
-#### Activity-detail page
-  - __This is fixed now__, no longer appending to Child object.  Cancel button is appending selected activity...!
+#### Activity-detail page - Complete
 
 
 

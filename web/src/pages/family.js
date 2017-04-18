@@ -31,7 +31,7 @@ class Family extends Component {
     const li = (child) => {
       if (child.familyId === props.family.familyId) {
       return (
-        <main className="mw6 center">
+        <main key={child._id} className="mw6 center">
           <article className="dt w-100 bb b--black-05 pb2 mt2 ml2" href="#0">
             <div className="dtc w2 w3-ns v-mid">
               <img src='/parker-paw-2.png' className="ba b--black-10 db br-100 w2 w3-ns h2 h3-ns"

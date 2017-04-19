@@ -48,7 +48,7 @@ class Child extends Component {
                 </div>) }
 
       const liActs = (acts) => {
-        return  <li key={acts.image}>{acts.name}</li>
+        return  <li key={acts.body}>{acts.name}</li>
       }
 
   //find siblings of this child & then makes a button for each sibling

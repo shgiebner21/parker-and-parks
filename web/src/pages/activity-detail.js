@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {filter, lensProp, set, append, path, compose,
+import {filter, lensProp, set, append, path,
         reduce, pathOr} from 'ramda'
 import Footer from '../components/footer'
 
@@ -14,7 +14,7 @@ const putActivity = (child, action, badges) => {
   let updatedChild = set(activitiesLens, append(action, child.activities), child)
 
   const badgeObj = filter(badge => badge.name === action.type, badges).pop()
-  console.log('activities for badge points ', filter(act => act.type === action.type, updatedChild.activities))
+  console.log(`activities for ${badgeObj.name} badge points `, filter(act => act.type === action.type, updatedChild.activities))
   console.log('updatedChild.activities are ', updatedChild.activities)
   const badgeActivities = filter(act => act.type === action.type, updatedChild.activities)
 
@@ -38,7 +38,6 @@ const putActivity = (child, action, badges) => {
     })
   }
 }
-
 
 
 

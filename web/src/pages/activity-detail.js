@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {filter, lensProp, set, append, path,
-        reduce, pathOr} from 'ramda'
+import {filter, lensProp, set, append, path, reduce} from 'ramda'
 import Footer from '../components/footer'
 
 
@@ -14,13 +13,29 @@ const putActivity = (child, action, badges) => {
   let updatedChild = set(activitiesLens, append(action, child.activities), child)
 
   const badgeObj = filter(badge => badge.name === action.type, badges).pop()
-  console.log(`activities for ${badgeObj.name} badge points `, filter(act => act.type === action.type, updatedChild.activities))
-  console.log('updatedChild.activities are ', updatedChild.activities)
+  const rangerBadge = filter(badge => badge.name === 'ranger', badges).pop()
   const badgeActivities = filter(act => act.type === action.type, updatedChild.activities)
 
-  if (reduce((acc, act) => acc + act.pointValue, 0, badgeActivities) >= badgeObj.pointsRequired) {
+// if activity type points earned >= points required for that badge type,
+// then append that badge to updatedChild
+  if ((reduce((acc, act) => acc + act.pointValue, 0, badgeActivities)
+      >= badgeObj.pointsRequired) &&
+      (reduce((acc, act) => acc + act.pointValue, 0, updatedChild.activities)
+        >= rangerBadge.pointsRequired)) {
     updatedChild = set(badgeLens, append(badgeObj, child.badges), updatedChild)
-
+    const rangerChild = set(badgeLens, append(rangerBadge, updatedChild.badges), updatedChild)
+    fetch('http://localhost:8080/children/' + child._id, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'PUT',
+      body: JSON.stringify(rangerChild)
+    })
+  } else if (reduce((acc, act) => acc + act.pointValue, 0, badgeActivities)
+      >= badgeObj.pointsRequired) {
+    updatedChild = set(badgeLens, append(badgeObj, child.badges), updatedChild)
+console.log('inside badge append, updatedChild is ', updatedChild)
+console.log('rangerBadge is ', rangerBadge)
     fetch('http://localhost:8080/children/' + child._id, {
       headers: {
         'Content-Type': 'application/json'
@@ -55,8 +70,8 @@ class ActivityDetail extends Component  {
     const action = filter(act => act.id === Number(props.match.params.id),
       props.park.activity).pop()
 
-// Trying to append earned badge to child
-    const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
+
+//    const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
 
 
     if (!path(['child', 'childName'], props)) {

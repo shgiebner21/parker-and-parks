@@ -48,7 +48,7 @@ class Child extends Component {
                 </div>) }
 
       const liActs = (acts) => {
-        return  <li key={acts.body}>{acts.name}</li>
+        return  <li key={acts.body + props.match.params.id}>{acts.name}</li>
       }
 
   //find siblings of this child & then makes a button for each sibling
@@ -69,6 +69,7 @@ class Child extends Component {
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
 
+//this is ONE line of code...
       const fitnessPoints = compose(
         reduce((acc, acts) => acc + acts.pointValue, 0, ),
         filter(act => act.type === 'fitness')
@@ -101,7 +102,7 @@ class Child extends Component {
         <div className='ma2'>
           <ul className="list pl0 mt0 measure center">
             <li className="flex items-center lh-copy pa1 ph0-l bb b--black-10">
-        <img  className='ba b--black-10 db br-100 w3 w3-ns h3 h3-ns'
+              <img  className='ba b--black-10 db br-100 w3 w3-ns h3 h3-ns'
             src='/parker-bear-orginal-painting.jpg' alt='Parker Bear on swing'></img>
             <div className="pl3 flex-auto">
             <span className="f4 db black-70">Hi {props.child.childName}!</span>
@@ -126,7 +127,7 @@ class Child extends Component {
           <ul>
             <li>Fitness points: {fitnessPoints}</li>
             <li>Scholar points: {scholarPoints}</li>
-            <li>Samaritan points: {samaritanPoints}</li>
+            <li>Volunteer points: {samaritanPoints}</li>
           </ul>
           <h4>Family Rank:</h4>
           <ol>

@@ -13,6 +13,7 @@
 
   #### TODO's completed
     - Completed Activity appended to Children.child
+    - All badges append to Children.child, including Park Ranger badge (even is earned at same time as an activity badge).
     - __Calculation for when badge earned__ - needs append to child also
     - API and DAL structure
     - Login button - now working and moving to Family page, BUT this route does not bring in family yet...

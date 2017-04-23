@@ -1,8 +1,23 @@
 const PouchDB = require('pouchdb-http')
 PouchDB.plugin(require('pouchdb-mapreduce'))
 const couch_base_uri = 'http://127.0.0.1:5984/'
-const couch_dbname = 'cpc'
-const db = new PouchDB(couch_base_uri + couch_dbname)
+//const couch_base_uri = 'https://slyinglaystromemadsolood:e69075d969b1307f33f868f158af2fbf060d8779@giebnar.cloudant.com/'
+ const couch_dbname = 'cpc'
+ const db = new PouchDB(couch_base_uri + couch_dbname)
+
+// const db = {
+//         "name": "Cloudant-3s",
+//         "label": "cloudantNoSQLDB",
+//         "plan": "shared",
+//         "credentials": {
+//             "username": "giebnar",
+//             "password": "@Coder~21",
+//             "host": "giebnar.cloudant.com",
+//             "port": 443,
+//             "url": "https://slyinglaystromemadsolood:e69075d969b1307f33f868f158af2fbf060d8779@giebnar.cloudant.com/cpc"
+//         }
+//     }
+
 const {map} = require('ramda')
 
 
@@ -23,6 +38,7 @@ function postFamily(family, cb) {
 }
 
 function getFamilies(starkey, limit, cb) {
+  console.log('inside getFamilies')
   db.query('families', {include_docs: true}, function(err, families) {
     if (err) return cb(err)
     cb(null, map(returnDoc, families.rows))

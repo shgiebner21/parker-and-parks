@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {filter, lensProp, set, append, path, reduce} from 'ramda'
+import {filter, lensProp, set, append, path, reduce, contains} from 'ramda'
 import Footer from '../components/footer'
 
 
@@ -21,7 +21,9 @@ const putActivity = (child, action, badges) => {
   if ((reduce((acc, act) => acc + act.pointValue, 0, badgeActivities)
       >= badgeObj.pointsRequired) &&
       (reduce((acc, act) => acc + act.pointValue, 0, updatedChild.activities)
-        >= rangerBadge.pointsRequired)) {
+        >= rangerBadge.pointsRequired) &&
+      !contains(rangerBadge, updatedChild.badges)
+      ) {
     updatedChild = set(badgeLens, append(badgeObj, child.badges), updatedChild)
     const rangerChild = set(badgeLens, append(rangerBadge, updatedChild.badges), updatedChild)
     fetch('http://localhost:8080/children/' + child._id, {
@@ -34,8 +36,6 @@ const putActivity = (child, action, badges) => {
   } else if (reduce((acc, act) => acc + act.pointValue, 0, badgeActivities)
       >= badgeObj.pointsRequired) {
     updatedChild = set(badgeLens, append(badgeObj, child.badges), updatedChild)
-console.log('inside badge append, updatedChild is ', updatedChild)
-console.log('rangerBadge is ', rangerBadge)
     fetch('http://localhost:8080/children/' + child._id, {
       headers: {
         'Content-Type': 'application/json'

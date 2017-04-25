@@ -1,24 +1,19 @@
 const PouchDB = require('pouchdb-http')
 PouchDB.plugin(require('pouchdb-mapreduce'))
-const couch_base_uri = 'http://127.0.0.1:5984/'
-//const couch_base_uri = 'https://slyinglaystromemadsolood:e69075d969b1307f33f868f158af2fbf060d8779@giebnar.cloudant.com/'
- const couch_dbname = 'cpc'
- const db = new PouchDB(couch_base_uri + couch_dbname)
+//const couch_base_uri = 'http://127.0.0.1:5984/'
+ // const couch_dbname = 'cpc'
+ // const db = new PouchDB(couch_base_uri + couch_dbname)
 
-// const db = {
-//         "name": "Cloudant-3s",
-//         "label": "cloudantNoSQLDB",
-//         "plan": "shared",
-//         "credentials": {
-//             "username": "giebnar",
-//             "password": "@Coder~21",
-//             "host": "giebnar.cloudant.com",
-//             "port": 443,
-//             "url": "https://slyinglaystromemadsolood:e69075d969b1307f33f868f158af2fbf060d8779@giebnar.cloudant.com/cpc"
-//         }
-//     }
+const Cloudant = require('cloudant')
+const username = process.env.cloudant_username || 'nodejs'
+const password = process.env.cloudant_password
+const myURL = process.env.CLOUDANT_URL
+const cloudant = Cloudant({url: myURL})
+const dbname = 'cpc'
+const db = cloudant.db.use(dbname)
 
 const {map} = require('ramda')
+
 
 
 
@@ -31,7 +26,7 @@ function postFamily(family, cb) {
   + '_' + family.eMail.toLowerCase() + '_' + family.cellPhone
   family._id = newId
 
-  db.put(family, function(err, resp) {
+  db.insert(family, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
@@ -61,14 +56,14 @@ function postChildren(child, cb) {
   + '_' + child.familyId.toLowerCase()
   child._id = newId
 
-  db.put(child, function(err, resp) {
+  db.insert(child, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
 }
 
 function listChildren(startkey, limit, cb) {
-  db.query('children', {include_docs: true}, function(err, list) {
+  db.search('children', {include_docs: true}, function(err, list) {
     if (err) return cb(err)
     cb(null, map(returnDoc, list.rows))
   })

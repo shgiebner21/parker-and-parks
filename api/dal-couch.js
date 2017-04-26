@@ -1,20 +1,10 @@
 const PouchDB = require('pouchdb-http')
 PouchDB.plugin(require('pouchdb-mapreduce'))
-//const couch_base_uri = 'http://127.0.0.1:5984/'
- // const couch_dbname = 'cpc'
- // const db = new PouchDB(couch_base_uri + couch_dbname)
-
-const Cloudant = require('cloudant')
-const username = process.env.cloudant_username || 'nodejs'
-const password = process.env.cloudant_password
-const myURL = process.env.CLOUDANT_URL
-const cloudant = Cloudant({url: myURL})
-const dbname = 'cpc'
-const db = cloudant.db.use(dbname)
+const couch_base_uri = 'http://127.0.0.1:5984/'
+const couch_dbname = 'cpc'
+const db = new PouchDB(couch_base_uri + couch_dbname)
 
 const {map} = require('ramda')
-
-
 
 
 /////////////////////////////////////////////
@@ -26,21 +16,19 @@ function postFamily(family, cb) {
   + '_' + family.eMail.toLowerCase() + '_' + family.cellPhone
   family._id = newId
 
-  db.insert(family, function(err, resp) {
+  db.put(family, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
 }
 
-function getFamilies(cb) {
-  db.view('families', 'families', {q: 'type: family', include_docs: true}, function(err, families) {
-console.log('inside getFamilies w families.rows of ', families.rows)
+function getFamilies(starkey, limit, cb) {
+  console.log('inside getFamilies')
+  db.query('families', {include_docs: true}, function(err, families) {
     if (err) return cb(err)
-console.log('map(returnDoc, families.rows) is ', families.rows)
     cb(null, map(returnDoc, families.rows))
   })
 }
-
 
 function getFamily(id, cb) {
   db.get(id, function(err, family) {
@@ -58,20 +46,18 @@ function postChildren(child, cb) {
   + '_' + child.familyId.toLowerCase()
   child._id = newId
 
-  db.insert(child, function(err, resp) {
+  db.put(child, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
 }
 
-function listChildren(cb) {
-  db.view('children', 'children', {q: 'type: children', include_docs: true}, function(err, children) {
-console.log('inside listChildren w children.rows of ', children.rows)
+function listChildren(startkey, limit, cb) {
+  db.query('children', {include_docs: true}, function(err, list) {
     if (err) return cb(err)
-    cb(null, map(returnDoc, children.rows))
+    cb(null, map(returnDoc, list.rows))
   })
 }
-
 
 function getChild(id, cb) {
   db.get(id, function(err, child) {

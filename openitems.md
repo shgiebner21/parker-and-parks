@@ -3,12 +3,10 @@
 ### TODO list for today, Monday April 10th
     - Child page - Family Rank calculation...__think I have to give sort(func, xx) a function__.
     - Child page - CPC Rank calculation...this is working by child id, NOT by points....
-  
-    
-  - Child page, blank children should not be allowed...__code is there but only partially working__...
+    - Move CouchDb to the cloud; this is done, but Cloudant syntax is different so some changes to dal.js are needed.
+    - Move Web App to the cloud.
+    - Child page, blank children should not be allowed...__code is there but only partially working__...
 
-  - Wire up CouchDb
-    - https:\\byseedstypingediseareake:224631cb9a0db5ad1e41160b9c538e3abdce370f@giebnar.cloudant.com/cpc
   
 
   #### TODO's completed

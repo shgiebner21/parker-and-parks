@@ -30,11 +30,12 @@ app.get('/family', function(req, resp, next) {
   const startKey = req.query.startkey ? req.query.startkey : undefined
   const limit = req.query.limit ? req.query.limit : undefined
 
-  getFamilies(startKey, limit, function(err, dalResp) {
+  getFamilies(function(err, dalResp) {
     if (err) return next(new HTTPError(err.status, err.message, err))
     resp.status(200).send(dalResp)
   })
 })
+
 
 app.get('/family/:id', function(req, resp, next) {
   getFamily(req.params.id, function(err, family) {
@@ -59,11 +60,12 @@ app.get('/children', function(req, resp, next) {
   const startKey = req.query.startkey ? req.query.startkey : undefined
   const limit = req.query.limit ? req.query.limit : undefined
 
-  listChildren(startKey, limit, function(err, children) {
+  listChildren(function(err, children) {
     if (err) return next(new HTTPError(err.status, err.message, err))
     return resp.status(200).send(children)
   })
 })
+
 
 app.get('/children/:id', function(req, resp, next) {
   getChild(req.params.id, function(err, child) {
@@ -93,10 +95,8 @@ app.put('/children/:id', function(req, resp, next) {
 //   badges
 /////////////////////////////////////////////
 app.get('/badges', function(req, resp, next) {
-  const startKey = req.query.startkey ? req.query.startkey : undefined
-  const limit = req.query.limit ? req.query.limit : undefined
 
-  listBadges(startKey, limit, function(err, badges) {
+  listBadges(function(err, badges) {
     if (err) return next(new HTTPError(err.status, err.message, err))
     resp.status(200).send(badges)
   })
@@ -107,10 +107,8 @@ app.get('/badges', function(req, resp, next) {
 /////////////////////////////////////////////
 
 app.get('/parks', function(req, resp, next) {
-  const startKey = req.query.startkey ? req.query.startkey : undefined
-  const limit = req.query.limit ? req.query.limit : undefined
 
-  getParks(startKey, limit, function(err, parks) {
+  getParks(function(err, parks) {
     if (err) return next(new HTTPError(err.status, err.message, err))
     resp.status(200).send(parks)
   })
@@ -122,9 +120,6 @@ app.get('/parks/:id', function(req, resp, next) {
     resp.status(200).send(park)
   })
 })
-
-
-
 
 
 

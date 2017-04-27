@@ -1,20 +1,10 @@
 const PouchDB = require('pouchdb-http')
 PouchDB.plugin(require('pouchdb-mapreduce'))
-//const couch_base_uri = 'http://127.0.0.1:5984/'
- // const couch_dbname = 'cpc'
- // const db = new PouchDB(couch_base_uri + couch_dbname)
-
-const Cloudant = require('cloudant')
-const username = process.env.cloudant_username || 'nodejs'
-const password = process.env.cloudant_password
-const myURL = process.env.CLOUDANT_URL
-const cloudant = Cloudant({url: myURL})
-const dbname = 'cpc'
-const db = cloudant.db.use(dbname)
+const couch_base_uri = 'http://127.0.0.1:5984/'
+const couch_dbname = 'cpc'
+const db = new PouchDB(couch_base_uri + couch_dbname)
 
 const {map} = require('ramda')
-
-
 
 
 /////////////////////////////////////////////
@@ -26,19 +16,19 @@ function postFamily(family, cb) {
   + '_' + family.eMail.toLowerCase() + '_' + family.cellPhone
   family._id = newId
 
-  db.insert(family, function(err, resp) {
+  db.put(family, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
 }
 
-function getFamilies(cb) {
-  db.view('families', 'families', {q: 'type: family', include_docs: true}, function(err, families) {
+function getFamilies(starkey, limit, cb) {
+  console.log('inside getFamilies')
+  db.query('families', {include_docs: true}, function(err, families) {
     if (err) return cb(err)
     cb(null, map(returnDoc, families.rows))
   })
 }
-
 
 function getFamily(id, cb) {
   db.get(id, function(err, family) {
@@ -56,19 +46,18 @@ function postChildren(child, cb) {
   + '_' + child.familyId.toLowerCase()
   child._id = newId
 
-  db.insert(child, function(err, resp) {
+  db.put(child, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
 }
 
-function listChildren(cb) {
-  db.view('children', 'children', {q: 'type: children', include_docs: true}, function(err, children) {
+function listChildren(startkey, limit, cb) {
+  db.query('children', {include_docs: true}, function(err, list) {
     if (err) return cb(err)
-    cb(null, map(returnDoc, children.rows))
+    cb(null, map(returnDoc, list.rows))
   })
 }
-
 
 function getChild(id, cb) {
   db.get(id, function(err, child) {
@@ -78,7 +67,7 @@ function getChild(id, cb) {
 }
 
 function updateChild(child, cb) {
-  db.insert(child, function(err, resp) {
+  db.put(child, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
@@ -96,8 +85,8 @@ function getActivity(id, cb) {
 /////////////////////////////////////////////
 //   badges
 /////////////////////////////////////////////
-function listBadges(cb) {
-  db.view('badges', 'badges', {q: 'type: badge', include_docs: true}, function(err, list) {
+function listBadges(startkey, limit, cb) {
+  db.query('badges', {include_docs: true}, function(err, list) {
     if (err) return cb(err)
     cb(null, map(returnDoc, list.rows))
   })
@@ -106,8 +95,8 @@ function listBadges(cb) {
 /////////////////////////////////////////////
 //   park
 /////////////////////////////////////////////
-function getParks(cb) {
-  db.view('parks', 'parks', {q: 'type: park', include_docs: true},  function(err, parks) {
+function getParks(startkey, limit, cb) {
+  db.query('parks', {include_docs: true},  function(err, parks) {
       if (err) return cb(err)
       cb(null, map(returnDoc, parks.rows))
     })
@@ -126,6 +115,12 @@ function getPark(id, cb) {
 /////////////////////////////////////////////
 
 const returnDoc = row => row.doc
+
+
+
+
+
+
 
 
 const dal = {

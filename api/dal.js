@@ -34,9 +34,7 @@ function postFamily(family, cb) {
 
 function getFamilies(cb) {
   db.view('families', 'families', {q: 'type: family', include_docs: true}, function(err, families) {
-console.log('inside getFamilies w families.rows of ', families.rows)
     if (err) return cb(err)
-console.log('map(returnDoc, families.rows) is ', families.rows)
     cb(null, map(returnDoc, families.rows))
   })
 }
@@ -66,7 +64,6 @@ function postChildren(child, cb) {
 
 function listChildren(cb) {
   db.view('children', 'children', {q: 'type: children', include_docs: true}, function(err, children) {
-console.log('inside listChildren w children.rows of ', children.rows)
     if (err) return cb(err)
     cb(null, map(returnDoc, children.rows))
   })
@@ -81,7 +78,7 @@ function getChild(id, cb) {
 }
 
 function updateChild(child, cb) {
-  db.put(child, function(err, resp) {
+  db.insert(child, function(err, resp) {
     if (err) return cb(err)
     cb(null, resp)
   })
@@ -99,8 +96,8 @@ function getActivity(id, cb) {
 /////////////////////////////////////////////
 //   badges
 /////////////////////////////////////////////
-function listBadges(startkey, limit, cb) {
-  db.query('badges', {include_docs: true}, function(err, list) {
+function listBadges(cb) {
+  db.view('badges', 'badges', {q: 'type: badge', include_docs: true}, function(err, list) {
     if (err) return cb(err)
     cb(null, map(returnDoc, list.rows))
   })
@@ -109,8 +106,8 @@ function listBadges(startkey, limit, cb) {
 /////////////////////////////////////////////
 //   park
 /////////////////////////////////////////////
-function getParks(startkey, limit, cb) {
-  db.query('parks', {include_docs: true},  function(err, parks) {
+function getParks(cb) {
+  db.view('parks', 'parks', {q: 'type: park', include_docs: true},  function(err, parks) {
       if (err) return cb(err)
       cb(null, map(returnDoc, parks.rows))
     })
@@ -129,12 +126,6 @@ function getPark(id, cb) {
 /////////////////////////////////////////////
 
 const returnDoc = row => row.doc
-
-
-
-
-
-
 
 
 const dal = {

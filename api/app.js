@@ -32,7 +32,6 @@ app.get('/family', function(req, resp, next) {
 
   getFamilies(function(err, dalResp) {
     if (err) return next(new HTTPError(err.status, err.message, err))
-console.log('app.js getFamilies is ', dalResp)
     resp.status(200).send(dalResp)
   })
 })
@@ -63,7 +62,6 @@ app.get('/children', function(req, resp, next) {
 
   listChildren(function(err, children) {
     if (err) return next(new HTTPError(err.status, err.message, err))
-console.log('app.js, listChildren is ', children)
     return resp.status(200).send(children)
   })
 })
@@ -97,10 +95,8 @@ app.put('/children/:id', function(req, resp, next) {
 //   badges
 /////////////////////////////////////////////
 app.get('/badges', function(req, resp, next) {
-  const startKey = req.query.startkey ? req.query.startkey : undefined
-  const limit = req.query.limit ? req.query.limit : undefined
 
-  listBadges(startKey, limit, function(err, badges) {
+  listBadges(function(err, badges) {
     if (err) return next(new HTTPError(err.status, err.message, err))
     resp.status(200).send(badges)
   })
@@ -111,10 +107,8 @@ app.get('/badges', function(req, resp, next) {
 /////////////////////////////////////////////
 
 app.get('/parks', function(req, resp, next) {
-  const startKey = req.query.startkey ? req.query.startkey : undefined
-  const limit = req.query.limit ? req.query.limit : undefined
 
-  getParks(startKey, limit, function(err, parks) {
+  getParks(function(err, parks) {
     if (err) return next(new HTTPError(err.status, err.message, err))
     resp.status(200).send(parks)
   })
@@ -126,9 +120,6 @@ app.get('/parks/:id', function(req, resp, next) {
     resp.status(200).send(park)
   })
 })
-
-
-
 
 
 

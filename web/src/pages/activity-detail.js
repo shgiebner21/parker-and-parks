@@ -11,6 +11,7 @@ const putActivity = (child, action, badges) => {
   const activitiesLens = lensProp('activities')
   const badgeLens = lensProp('badges')
   let updatedChild = set(activitiesLens, append(action, child.activities), child)
+  updatedChild.totalPoints = reduce((acc, acts) => acc + acts.pointValue, 0, updatedChild.activities)
 
   const badgeObj = filter(badge => badge.name === action.type, badges).pop()
   const rangerBadge = filter(badge => badge.name === 'ranger', badges).pop()

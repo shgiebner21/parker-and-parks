@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, path, pathOr} from 'ramda'
+import {map, reduce, filter, compose, path, pathOr, sortBy, prop, reverse} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
@@ -69,7 +69,6 @@ class Child extends Component {
 
       const parkerPoints = reduce((acc, acts) => acc + acts.pointValue, 0, pathOr([], ['child', 'activities'], props))
 
-//this is ONE line of code...
       const fitnessPoints = compose(
         reduce((acc, acts) => acc + acts.pointValue, 0, ),
         filter(act => act.type === 'fitness')
@@ -86,14 +85,16 @@ class Child extends Component {
       )(pathOr([], ['child', 'activities'], props))
 
 
-  //pull children in family for Family Rank calc and order them by points
-  //pull all children for CPC Rank calc and order them by points
+//pull children in family for Family Rank calc
         const familyChildren = (child, sibs) => {
         return compose(
+          reverse(),
+          sortBy(prop('totalPoints')),
           filter(sib => (sib.familyId === child.familyId) === true)
         )(sibs)
       }
 
+//pull all children for CPC Rank calc and order them by points
       const rankGroup = (child) => {
         return <li key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points</li>
       }

@@ -1,7 +1,6 @@
 # Open Items and Parking Lot
 
-### TODO list for today, Monday April 10th
-    - Child page - Family Rank calculation...__think I have to give sort(func, xx) a function__.
+### TODO list
     - Child page - CPC Rank calculation...this is working by child id, NOT by points....
     - Move Web App to the cloud.
     - Child page, blank children should not be allowed...__code is there but only partially working__...
@@ -12,6 +11,7 @@
   #### TODO's completed
     - Move CouchDb to the cloud; this is done, but Cloudant syntax is different so some changes to dal.js are needed.
     - Completed Activity appended to Children.child
+    - Child page - Family Rank calculation...__think I have to give sort(func, xx) a function__.
     - All badges append to Children.child, including Park Ranger badge (even is earned at same time as an activity badge).
     - __Calculation for when badge earned__ - needs append to child also
     - API and DAL structure

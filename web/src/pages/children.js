@@ -7,7 +7,7 @@ import BasicButton from '../components/basic-button'
 
 const updateFamilyId = (children, id) => {
   return (children.familyId = id,  children.activities = [],
-          children.badges = [])
+          children.badges = [], children.totalPoints = 0)
 }
 
 const postChildren = (children) => fetch('http://localhost:8080/children', {

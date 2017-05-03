@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {pathOr, map, compose, filter, propEq} from 'ramda'
+import moment from 'moment'
+moment().format()
 import TextField from '../components/input-text'
 import BasicButton from '../components/basic-button'
 

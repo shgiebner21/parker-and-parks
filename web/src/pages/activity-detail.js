@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {filter, lensProp, set, append, path, reduce, contains} from 'ramda'
+import moment from 'moment'
+moment().format()
 import Footer from '../components/footer'
 
 
@@ -10,6 +12,7 @@ const putActivity = (child, action, badges) => {
 
   const activitiesLens = lensProp('activities')
   const badgeLens = lensProp('badges')
+  action.timeStamp = moment().format('MMMM Do YYYY, h:mm a')
   let updatedChild = set(activitiesLens, append(action, child.activities), child)
   updatedChild.totalPoints = reduce((acc, acts) => acc + acts.pointValue, 0, updatedChild.activities)
 

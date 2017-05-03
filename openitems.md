@@ -4,7 +4,6 @@
     - Child page - CPC Rank calculation...this is working by child id, NOT by points....
     - Move Web App to the cloud.
     - Child page, blank children should not be allowed...__code is there but only partially working__...
-    - Add Date/Time to Signup, Login and Activities completed.
     - Either allow multiple completions of same activity by same child (need to add date/time to key) or disallow.
   
 
@@ -17,6 +16,7 @@
     - API and DAL structure
     - Login button - now working and moving to Family page, BUT this route does not bring in family yet...
     - Add More Children button - wire up
+    - Add Date/Time to Signup, Login and Activities completed.
 
     - Child page, Sibling buttons need to refresh for new Child selected (used set() to change State
     - Blank Signup should not be allowed

@@ -1,11 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {pathOr} from 'ramda'
+import moment from 'moment'
+moment().format()
 import TextField from '../components/input-text'
 import BasicButton from '../components/basic-button'
 
 
 const updateFamilyId = (children, id) => {
+  children.timeStamp = moment().format('MMMM Do YYYY, h:mm a')
   return (children.familyId = id,  children.activities = [],
           children.badges = [], children.totalPoints = 0)
 }

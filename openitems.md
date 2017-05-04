@@ -1,10 +1,11 @@
 # Open Items and Parking Lot
 
 ### TODO list
-    - Child page - CPC Rank calculation...this is working by child id, NOT by points....
-    - Move Web App to the cloud.
+    - Child page - High Score; what logic to limit to top 5 (if tied, oldest score wins?).
+    - Move Web App to the cloud or make native downloadable app.
     - Child page, blank children should not be allowed...__code is there but only partially working__...
     - Either allow multiple completions of same activity by same child (need to add date/time to key) or disallow.
+    - Badges should be on same horizontal row, not stacked vertically.
   
 
   #### TODO's completed

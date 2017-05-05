@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {map, reduce, filter, compose, path, pathOr, sortBy, prop, reverse} from 'ramda'
+import {map, reduce, filter, compose, path, pathOr, sortBy, prop, reverse, slice} from 'ramda'
 import ChildButton from '../components/child-button'
 
 
@@ -43,9 +43,12 @@ class Child extends Component {
     } else {
       const li = (badge) => {
         return ( <div key={badge.image}>
-                  <img src={badge.image} alt={badge.alt}
-                    className='br2 h3 w3 dib'></img>
+                  <img src={badge.image} alt={badge.alt} className='fl h3 w3 link overflow-hidden'></img>
                 </div>) }
+
+// return <li className="fl w-50 w-25-l link overflow-hidden"  key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points
+//   <div role='img' style={{background: 'no-repeat center', backgroundSize: 'cover'}}></div>
+// </a>
 
       const liActs = (acts) => {
         return  <li key={acts.body + props.child._id}>{acts.name}</li>
@@ -94,6 +97,14 @@ class Child extends Component {
         )(sibs)
       }
 
+      const highScore = (children) => {
+        return compose(
+          slice(0, 5, ),
+          reverse(),
+          sortBy(prop('totalPoints'))
+        )(children)
+      }
+
 //pull all children for CPC Rank calc and order them by points
       const rankGroup = (child) => {
         return <li key={child.childName}>{child.childName} - {reduce((acc, acts) => acc + acts.pointValue, 0, child.activities)} Parker points</li>
@@ -121,8 +132,11 @@ class Child extends Component {
             <ul>
               {map(liActs, pathOr([], ['child', 'activities'], props))}
             </ul>
+
+          <div className='dt w-100 bb b--white-05 pb2 mt2'>
           <h4>Badges:</h4>
-            {map(li, pathOr([], ['child', 'badges'], props))}
+              {map(li, pathOr([], ['child', 'badges'], props))}
+          </div>
 
           <h4>Parker points: {parkerPoints}  </h4>
           <ul>
@@ -134,9 +148,9 @@ class Child extends Component {
           <ol>
             {map(rankGroup, familyChildren(props.child, props.children))}
           </ol>
-          <h4>CPC Rank:</h4>
+          <h4>High Score:</h4>
           <ol>
-            {map(rankGroup, props.children)}
+            {map(rankGroup, highScore(props.children))}
           </ol>
           <hr />
         </div>

@@ -2,7 +2,7 @@
 
 ### TODO list
     - Move Web App to the cloud or make native downloadable app.
-    - Child page, blank children should not be allowed...__code is there but only partially working__...
+    - Child page, blank children should not be allowed... __code is there but only partially working__ ...
     - Either allow multiple completions of same activity by same child (need to add date/time to key) or disallow.
     - Looks like duplicate badges are still happening, not a big problem but should clean up.
   
